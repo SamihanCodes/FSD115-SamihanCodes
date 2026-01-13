@@ -1,51 +1,59 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import api from "../api/axios";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Load auth from localStorage on refresh
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    const storedToken = localStorage.getItem("token");
+useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  const storedToken = localStorage.getItem("token");
 
-    if (storedUser && storedToken) {
-      setUser(JSON.parse(storedUser));
+  if (
+    storedUser &&
+    storedUser !== "undefined" &&
+    storedUser !== "null" &&
+    storedToken
+  ) {
+    try {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
       setToken(storedToken);
-      api.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${storedToken}`;
+    } catch (error) {
+      console.error("Invalid stored user, clearing storage");
+      localStorage.clear();
     }
-  }, []);
+  }
 
-  const login = (userData, jwt) => {
-    setUser(userData);
-    setToken(jwt);
+  setLoading(false);
+}, []);
+
+
+  const login = (userData, jwtToken) => {
     localStorage.setItem("user", JSON.stringify(userData));
-    localStorage.setItem("token", jwt);
-    api.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${jwt}`;
+    localStorage.setItem("token", jwtToken);
+    setUser(userData);
+    setToken(jwtToken);
   };
 
   const logout = () => {
-    setUser(null);
-    setToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    delete api.defaults.headers.common["Authorization"];
+    setUser(null);
+    setToken(null);
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, token, login, logout }}
+      value={{ user, token, login, logout, loading }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+const useAuth = () => useContext(AuthContext);
+
+export { AuthProvider, useAuth };
