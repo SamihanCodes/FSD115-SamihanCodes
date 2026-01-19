@@ -1,5 +1,6 @@
 const bidModel = require("../models/bidModel");
 const pool = require("../config/db");
+const transactionModel = require("../models/transactionModel");
 
 // Buyer places a bid
 const placeBid = async (req, res) => {
@@ -73,7 +74,7 @@ const getMyBids = async (req, res) => {
   }
 };
 
-// ✅ ACCEPT BID (THIS WAS MISSING)
+// Seller accepts bid
 const acceptBid = async (req, res) => {
   try {
     const seller_id = req.user.id;
@@ -87,9 +88,18 @@ const acceptBid = async (req, res) => {
       });
     }
 
+    // Mark listing as sold
     await pool.query(
       "UPDATE listings SET status = 'sold' WHERE id = $1",
       [bid.listing_id]
+    );
+
+    // ✅ CREATE TRANSACTION (CORRECT PLACE)
+    await transactionModel.createTransaction(
+      bid.id,
+      bid.buyer_id,
+      seller_id,
+      bid.amount
     );
 
     res.json({
@@ -105,5 +115,5 @@ const acceptBid = async (req, res) => {
 module.exports = {
   placeBid,
   getMyBids,
-  acceptBid
+  acceptBid,
 };

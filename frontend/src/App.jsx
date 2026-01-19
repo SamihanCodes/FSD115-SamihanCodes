@@ -10,6 +10,7 @@ import Listings from "./pages/Listings";
 import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
 import MyBids from "./pages/MyBids";
+import MyTransactions from "./pages/MyTransactions";
 
 import MyInterests from "./pages/MyInterests"
 function App() {
@@ -75,6 +76,15 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/transactions/my"
+          element={
+            <ProtectedRoute>
+              <MyTransactions />
+            </ProtectedRoute>
+          }
+        />
+
 
 
       </Routes>
