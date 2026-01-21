@@ -1,18 +1,53 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
+import { getMyNotifications } from "../api/notifications";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [hasNotification, setHasNotification] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
+  useEffect(() => {
+    if (user) {
+      getMyNotifications().then((res) => {
+       
+        setHasNotification(res.data.length > 0);
+      });
+    } else {
+      setHasNotification(false);
+    }
+  }, [user]);
+
   return (
     <nav className="navbar">
       <Link to="/">Home</Link>
+
+      {" | "}
+      <Link
+        to="/notifications"
+        style={{ position: "relative", display: "inline-block" }}
+      >
+        Notifications
+        {hasNotification && (
+          <span
+            style={{
+              position: "absolute",
+              top: "2px",
+              right: "-10px",
+              width: "8px",
+              height: "8px",
+              backgroundColor: "red",
+              borderRadius: "50%",
+            }}
+          />
+        )}
+      </Link>
 
       {user && (
         <>

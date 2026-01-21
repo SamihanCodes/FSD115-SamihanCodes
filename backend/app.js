@@ -12,7 +12,10 @@ const transactionRoutes = require("./routes/transactionRoutes");
 
 const app = express();
 const adminRoutes = require("./routes/adminRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
+
+app.use("/api/notifications", notificationRoutes);
 app.use("/api/admin", adminRoutes);
 app.use(cors());
 app.use(express.json());

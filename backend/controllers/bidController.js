@@ -1,6 +1,7 @@
 const bidModel = require("../models/bidModel");
 const pool = require("../config/db");
 const transactionModel = require("../models/transactionModel");
+const notificationModel = require("../models/notificationModel");
 
 // Buyer places a bid
 const placeBid = async (req, res) => {
@@ -23,6 +24,7 @@ const placeBid = async (req, res) => {
       return res.status(404).json({ message: "Listing not found" });
     }
 
+    
     const listing = listingResult.rows[0];
 
     if (listing.seller_id === buyer_id) {
@@ -52,6 +54,12 @@ const placeBid = async (req, res) => {
 
     const bid = await bidModel.createBid(listing_id, buyer_id, amount);
 
+    //  Notify seller
+    await notificationModel.createNotification(
+      listing.seller_id,
+      "A new bid has been placed on your listing."
+    );
+
     res.status(201).json({
       message: "Bid placed successfully",
       bid,
@@ -61,6 +69,7 @@ const placeBid = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 // Seller views bids
 const getMyBids = async (req, res) => {
@@ -73,6 +82,7 @@ const getMyBids = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 // Seller accepts bid
 const acceptBid = async (req, res) => {
@@ -94,17 +104,30 @@ const acceptBid = async (req, res) => {
       [bid.listing_id]
     );
 
-    // ✅ CREATE TRANSACTION (CORRECT PLACE)
-    await transactionModel.createTransaction(
+    // Create transaction
+    const transaction = await transactionModel.createTransaction(
       bid.id,
       bid.buyer_id,
       seller_id,
       bid.amount
     );
 
+    //  Notify buyer
+    await notificationModel.createNotification(
+      bid.buyer_id,
+      "Your bid has been accepted by the seller."
+    );
+
+    //  Notify seller
+    await notificationModel.createNotification(
+      seller_id,
+      "A transaction has been created for your listing."
+    );
+
     res.json({
       message: "Bid accepted, listing marked as sold",
       bid,
+      transaction,
     });
   } catch (error) {
     console.error("Accept bid error:", error);

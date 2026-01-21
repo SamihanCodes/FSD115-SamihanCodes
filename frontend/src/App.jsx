@@ -14,6 +14,7 @@ import MyTransactions from "./pages/MyTransactions";
 import Invoice from "./pages/Invoice";
 import MyInterests from "./pages/MyInterests"
 import AdminDashboard from "./pages/AdminDashboard";
+import Notifications from "./pages/Notifications";
 
 
 function App() {
@@ -103,8 +104,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-
-
+        <Route
+          path="/notifications"
+          element={
+            <ProtectedRoute>
+              <Notifications />
+            </ProtectedRoute>
+          }
+        />
 
 
       </Routes>
