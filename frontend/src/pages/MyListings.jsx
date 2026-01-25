@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getMyListings } from "../api/listings";
 import { useNavigate } from "react-router-dom";
+import Messages from "../components/Messages";
 
 const MyListings = () => {
   const [listings, setListings] = useState([]);
@@ -41,17 +42,24 @@ const MyListings = () => {
             )}
           </p>
 
+          {/* ✏️ EDIT LISTING */}
           {l.status === "active" && (
             <button
               onClick={() => navigate(`/listings/edit/${l.id}`)}
               style={{
                 backgroundColor: "#16808D",
                 padding: "6px 12px",
+                marginBottom: "10px",
               }}
             >
               Edit Listing
             </button>
           )}
+
+          {/* 💬 SELLER MESSAGE PANEL */}
+          <div style={{ marginTop: "10px" }}>
+            <Messages listingId={l.id} />
+          </div>
         </div>
       ))}
     </div>
