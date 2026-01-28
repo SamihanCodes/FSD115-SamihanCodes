@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getMyListings, updateListing } from "../api/listings";
+import {
+  getMyListings,
+  updateListing,
+  deleteListing,
+} from "../api/listings";
 
 const EditListing = () => {
   const { id } = useParams();
@@ -41,42 +45,48 @@ const EditListing = () => {
   }, [id, navigate]);
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Explicit payload (NO status ever)
-    const payload = {
-      animal_type: form.animal_type,
-      breed: form.breed,
-      age: form.age ? Number(form.age) : null,
-      price: Number(form.price),
-      description: form.description,
-    };
-
     try {
-      await updateListing(id, payload);
+      await updateListing(id, {
+        animal_type: form.animal_type,
+        breed: form.breed,
+        age: form.age ? Number(form.age) : null,
+        price: Number(form.price),
+        description: form.description,
+      });
+
       alert("Listing updated successfully");
       navigate("/listings/my");
-    } catch (err) {
-      console.error(err);
+    } catch {
       alert("Failed to update listing");
+    }
+  };
+
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure? This will permanently delete the listing."
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await deleteListing(id);
+      alert("Listing deleted");
+      navigate("/listings/my");
+    } catch {
+      alert("Failed to delete listing");
     }
   };
 
   if (loading) {
     return (
       <div className="container">
-        <div className="card">
-          <p style={{ color: "#475569" }}>
-            Loading listing details…
-          </p>
-        </div>
+        <div className="card">Loading…</div>
       </div>
     );
   }
@@ -84,12 +94,9 @@ const EditListing = () => {
   return (
     <div className="container">
       <div className="card">
-        <h2 style={{ color: "#142C52", marginBottom: "16px" }}>
-          Edit Listing
-        </h2>
+        <h2>Edit Listing</h2>
 
         <form onSubmit={handleSubmit}>
-          <label><strong>Animal Type</strong></label>
           <input
             name="animal_type"
             value={form.animal_type}
@@ -97,50 +104,46 @@ const EditListing = () => {
             required
           />
 
-          <label><strong>Breed</strong></label>
           <input
             name="breed"
             value={form.breed}
             onChange={handleChange}
           />
 
-          <label><strong>Age</strong></label>
           <input
             name="age"
             type="number"
-            min="0"
             value={form.age}
             onChange={handleChange}
           />
 
-          <label><strong>Price (₹)</strong></label>
           <input
             name="price"
             type="number"
-            min="1"
             value={form.price}
             onChange={handleChange}
             required
           />
 
-          <label><strong>Description</strong></label>
           <textarea
             name="description"
-            rows="4"
             value={form.description}
             onChange={handleChange}
           />
 
-          <button
-            type="submit"
-            style={{
-              marginTop: "12px",
-              backgroundColor: "#16808D",
-            }}
-          >
-            Update Listing
-          </button>
+          <button type="submit">Update Listing</button>
         </form>
+
+        {/* 🔴 DELETE */}
+        <button
+          onClick={handleDelete}
+          style={{
+            marginTop: "12px",
+            backgroundColor: "#EF4444",
+          }}
+        >
+          Delete Listing
+        </button>
       </div>
     </div>
   );

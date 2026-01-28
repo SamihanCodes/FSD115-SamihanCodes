@@ -3,6 +3,7 @@ import { searchListings } from "../api/listings";
 import { createInterest } from "../api/interests";
 import { placeBid } from "../api/bids";
 import { useAuth } from "../context/AuthContext";
+import Messages from "../components/Messages"; // ✅ RESTORED
 
 const Listings = () => {
   const { user } = useAuth();
@@ -54,11 +55,11 @@ const Listings = () => {
 
       {/* 🔍 FILTER BAR */}
       <div className="card" style={{ marginBottom: "20px" }}>
-        <h3 style={{ marginBottom: "10px" }}>Search & Filter</h3>
+        <h3>Search & Filter</h3>
 
         <input
           name="animal_type"
-          placeholder="Animal Type (e.g. Cow, Goat)"
+          placeholder="Animal Type"
           value={filters.animal_type}
           onChange={handleFilterChange}
         />
@@ -94,7 +95,7 @@ const Listings = () => {
       {listings.map((l) => (
         <div className="card" key={l.id}>
           {/* 🖼️ IMAGES */}
-          {l.images && l.images.length > 0 ? (
+          {l.images?.length > 0 ? (
             <div
               style={{
                 display: "grid",
@@ -113,15 +114,12 @@ const Listings = () => {
                     height: "120px",
                     objectFit: "cover",
                     borderRadius: "8px",
-                    border: "1px solid #e5e7eb",
                   }}
                 />
               ))}
             </div>
           ) : (
-            <p style={{ color: "#94a3b8", marginBottom: "10px" }}>
-              No images uploaded
-            </p>
+            <p style={{ color: "#94a3b8" }}>No images uploaded</p>
           )}
 
           {/* 📄 DETAILS */}
@@ -141,7 +139,7 @@ const Listings = () => {
             </button>
           )}
 
-          {/* 💰 BIDDING */}
+          {/* 💰 BID */}
           {user?.role === "buyer" && (
             <div style={{ marginTop: "10px" }}>
               <input
@@ -158,6 +156,16 @@ const Listings = () => {
               >
                 Place Bid
               </button>
+            </div>
+          )}
+
+          {/* 💬 CHAT — RESTORED */}
+          {user && (
+            <div style={{ marginTop: "16px" }}>
+              <Messages
+                listingId={l.id}
+                listingStatus={l.status}
+              />
             </div>
           )}
         </div>

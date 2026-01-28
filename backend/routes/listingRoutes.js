@@ -8,13 +8,20 @@ const {
   updateListingStatus,
   updateListing,
   searchListings,
+  deleteListing,
 } = require("../controllers/listingController");
 
 const authenticate = require("../middleware/authMiddleware");
 const authorizeRole = require("../middleware/roleMiddleware");
 const upload = require("../middleware/uploadMiddleware");
 
-// ✅ CREATE LISTING (WITH IMAGES)
+// 🔍 SEARCH MUST COME FIRST
+router.get("/search", searchListings);
+
+// 🌍 PUBLIC – buyer listings
+router.get("/", getAllListings);
+
+// 🐄 CREATE LISTING
 router.post(
   "/",
   authenticate,
@@ -23,13 +30,7 @@ router.post(
   createListing
 );
 
-// ✅ GET ALL LISTINGS
-router.get("/", getAllListings);
-
-// ✅ SEARCH
-router.get("/search", searchListings);
-
-// ✅ SELLER LISTINGS
+// 👤 SELLER LISTINGS
 router.get(
   "/my",
   authenticate,
@@ -37,7 +38,7 @@ router.get(
   getMyListings
 );
 
-// ✅ EDIT LISTING
+// ✏️ EDIT
 router.put(
   "/:id",
   authenticate,
@@ -45,12 +46,20 @@ router.put(
   updateListing
 );
 
-// ✅ UPDATE STATUS
+// 🔄 STATUS
 router.patch(
   "/:id/status",
   authenticate,
   authorizeRole("seller"),
   updateListingStatus
+);
+
+// ❌ DELETE (PERMANENT)
+router.delete(
+  "/:id",
+  authenticate,
+  authorizeRole("seller"),
+  deleteListing
 );
 
 module.exports = router;

@@ -22,71 +22,87 @@ const MyListings = () => {
         </p>
       )}
 
-      {listings.map((l) => (
-        <div className="card" key={l.id}>
-          {/* 🖼️ IMAGES */}
-          {l.images && l.images.length > 0 ? (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
-                gap: "8px",
-                marginBottom: "12px",
-              }}
-            >
-              {l.images.map((img, i) => (
-                <img
-                  key={i}
-                  src={img}
-                  alt="livestock"
-                  style={{
-                    width: "100%",
-                    height: "120px",
-                    objectFit: "cover",
-                    borderRadius: "8px",
-                    border: "1px solid #e5e7eb",
-                  }}
-                />
-              ))}
-            </div>
-          ) : (
-            <p style={{ color: "#94a3b8", marginBottom: "10px" }}>
-              No images uploaded
-            </p>
-          )}
+      {listings.map((l) => {
+        const coverImage =
+          Array.isArray(l.images) && l.images.length > 0
+            ? l.images[0]
+            : null;
 
-          {/* 📄 DETAILS */}
-          <h3 style={{ color: "#142C52", marginBottom: "6px" }}>
-            {l.animal_type}
-          </h3>
-
-          <p style={{ marginBottom: "4px" }}>
-            <strong>Price:</strong> ₹{l.price}
-          </p>
-
-          <p style={{ marginBottom: "10px" }}>
-            <strong>Status:</strong>{" "}
-            {l.status === "active" ? (
-              <span style={{ color: "#22C55E" }}>Active</span>
+        return (
+          <div className="card" key={l.id}>
+            {/* 🖼️ COVER IMAGE */}
+            {coverImage ? (
+              <img
+                src={coverImage}
+                alt="livestock"
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  objectFit: "cover",
+                  borderRadius: "10px",
+                  marginBottom: "12px",
+                }}
+              />
             ) : (
-              <span style={{ color: "#EF4444" }}>Sold</span>
+              <div
+                style={{
+                  height: "180px",
+                  backgroundColor: "#f1f5f9",
+                  borderRadius: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "12px",
+                  color: "#64748b",
+                }}
+              >
+                No image uploaded
+              </div>
             )}
-          </p>
 
-          {/* ✏️ EDIT */}
-          {l.status === "active" && (
-            <button
-              onClick={() => navigate(`/listings/edit/${l.id}`)}
+            {/* 📄 DETAILS */}
+            <h3 style={{ color: "#142C52", marginBottom: "6px" }}>
+              {l.animal_type}
+            </h3>
+
+            <p style={{ marginBottom: "6px" }}>
+              <strong>Price:</strong> ₹{l.price}
+            </p>
+
+            {/* 🟢 STATUS BADGE */}
+            <span
               style={{
-                backgroundColor: "#16808D",
-                padding: "6px 12px",
+                display: "inline-block",
+                padding: "4px 10px",
+                borderRadius: "999px",
+                fontSize: "13px",
+                marginBottom: "12px",
+                backgroundColor:
+                  l.status === "active" ? "#DCFCE7" : "#FEE2E2",
+                color:
+                  l.status === "active" ? "#166534" : "#991B1B",
               }}
             >
-              Edit Listing
-            </button>
-          )}
-        </div>
-      ))}
+              {l.status === "active" ? "Active" : "Sold"}
+            </span>
+
+            {/* ✏️ EDIT BUTTON */}
+            {l.status === "active" && (
+              <div style={{ marginTop: "10px" }}>
+                <button
+                  onClick={() => navigate(`/listings/edit/${l.id}`)}
+                  style={{
+                    backgroundColor: "#16808D",
+                    padding: "6px 14px",
+                  }}
+                >
+                  Edit Listing
+                </button>
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

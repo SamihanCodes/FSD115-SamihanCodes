@@ -33,3 +33,5 @@ export const updateListingStatus = (id, status) => {
 export const searchListings = (params) => {
   return api.get("/listings/search", { params });
 };
+export const deleteListing = (id) =>
+  api.delete(`/listings/${id}`);
