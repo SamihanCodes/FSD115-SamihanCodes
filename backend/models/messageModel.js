@@ -1,5 +1,6 @@
 const pool = require("../config/db");
 
+// 🔹 Create new message
 const createMessage = async (
   listing_id,
   sender_id,
@@ -18,7 +19,15 @@ const createMessage = async (
   return result.rows[0];
 };
 
-const getMessagesByListing = async (listingId, buyerId, userId) => {
+// 🔹 Get messages for a listing
+// - Seller: pass buyerId
+// - Buyer: buyerId === userId
+const getMessagesByListing = async (
+  listingId,
+  buyerId,
+  userId,
+  role
+) => {
   let query = `
     SELECT 
       m.*,
@@ -31,9 +40,21 @@ const getMessagesByListing = async (listingId, buyerId, userId) => {
   `;
 
   const values = [listingId];
+  let idx = 2;
 
-  if (buyerId) {
-    query += " AND (m.sender_id = $2 OR m.receiver_id = $2)";
+  // Buyer can only see their own messages
+  if (role === "buyer") {
+    query += `
+      AND (m.sender_id = $${idx} OR m.receiver_id = $${idx})
+    `;
+    values.push(userId);
+  }
+
+  // Seller selecting a buyer from sidebar
+  if (role === "seller" && buyerId) {
+    query += `
+      AND (m.sender_id = $${idx} OR m.receiver_id = $${idx})
+    `;
     values.push(buyerId);
   }
 
@@ -42,6 +63,8 @@ const getMessagesByListing = async (listingId, buyerId, userId) => {
   const result = await pool.query(query, values);
   return result.rows;
 };
+
+// 🔹 Seller sidebar: buyers who messaged this listing
 const getBuyersForListing = async (listing_id) => {
   const query = `
     SELECT DISTINCT
@@ -57,7 +80,6 @@ const getBuyersForListing = async (listing_id) => {
   const result = await pool.query(query, [listing_id]);
   return result.rows;
 };
-
 
 module.exports = {
   createMessage,

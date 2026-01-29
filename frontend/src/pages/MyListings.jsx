@@ -30,7 +30,7 @@ const MyListings = () => {
 
         return (
           <div className="card" key={l.id}>
-            {/* 🖼️ COVER IMAGE */}
+            {/* COVER IMAGE */}
             {coverImage ? (
               <img
                 src={coverImage}
@@ -60,7 +60,7 @@ const MyListings = () => {
               </div>
             )}
 
-            {/* 📄 DETAILS */}
+            {/* DETAILS */}
             <h3 style={{ color: "#142C52", marginBottom: "6px" }}>
               {l.animal_type}
             </h3>
@@ -69,7 +69,7 @@ const MyListings = () => {
               <strong>Price:</strong> ₹{l.price}
             </p>
 
-            {/* 🟢 STATUS BADGE */}
+            {/* STATUS BADGE */}
             <span
               style={{
                 display: "inline-block",
@@ -86,9 +86,9 @@ const MyListings = () => {
               {l.status === "active" ? "Active" : "Sold"}
             </span>
 
-            {/* ✏️ EDIT BUTTON */}
-            {l.status === "active" && (
-              <div style={{ marginTop: "10px" }}>
+            {/* ACTION BUTTONS */}
+            <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
+              {l.status === "active" && (
                 <button
                   onClick={() => navigate(`/listings/edit/${l.id}`)}
                   style={{
@@ -98,8 +98,8 @@ const MyListings = () => {
                 >
                   Edit Listing
                 </button>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         );
       })}

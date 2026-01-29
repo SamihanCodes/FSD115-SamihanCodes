@@ -86,7 +86,7 @@ const EditListing = () => {
   if (loading) {
     return (
       <div className="container">
-        <div className="card">Loading…</div>
+        <div className="card">Loading listing…</div>
       </div>
     );
   }
@@ -94,9 +94,12 @@ const EditListing = () => {
   return (
     <div className="container">
       <div className="card">
-        <h2>Edit Listing</h2>
+        <h2 style={{ color: "#142C52", marginBottom: "16px" }}>
+          Edit Listing
+        </h2>
 
         <form onSubmit={handleSubmit}>
+          <label>Animal Type</label>
           <input
             name="animal_type"
             value={form.animal_type}
@@ -104,41 +107,57 @@ const EditListing = () => {
             required
           />
 
+          <label>Breed</label>
           <input
             name="breed"
             value={form.breed}
             onChange={handleChange}
           />
 
+          <label>Age</label>
           <input
             name="age"
             type="number"
+            min="0"
             value={form.age}
             onChange={handleChange}
           />
 
+          <label>Price (₹)</label>
           <input
             name="price"
             type="number"
+            min="1"
             value={form.price}
             onChange={handleChange}
             required
           />
 
+          <label>Description</label>
           <textarea
             name="description"
+            rows="4"
             value={form.description}
             onChange={handleChange}
           />
 
-          <button type="submit">Update Listing</button>
+          <button
+            type="submit"
+            style={{
+              marginTop: "12px",
+              backgroundColor: "#16808D",
+            }}
+          >
+            Update Listing
+          </button>
         </form>
 
-        {/* 🔴 DELETE */}
+        {/*  PERMANENT DELETE */}
         <button
           onClick={handleDelete}
+          disabled={loading}
           style={{
-            marginTop: "12px",
+            marginTop: "16px",
             backgroundColor: "#EF4444",
           }}
         >

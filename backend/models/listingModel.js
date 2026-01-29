@@ -1,6 +1,6 @@
 const pool = require("../config/db");
 
-// ✅ CREATE LISTING (WITH IMAGES as TEXT[])
+//  CREATE LISTING 
 const createListing = async (
   seller_id,
   animal_type,
@@ -14,7 +14,7 @@ const createListing = async (
     `
     INSERT INTO listings 
     (seller_id, animal_type, breed, age, price, description, images)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    VALUES ($1, $2, $3, $4, $5, $6, $7::jsonb)
     RETURNING *;
     `,
     [
@@ -24,14 +24,15 @@ const createListing = async (
       age,
       price,
       description,
-      images && images.length ? images : null,
+      JSON.stringify(images || []),
     ]
   );
 
   return result.rows[0];
 };
 
-// ✅ GET ALL ACTIVE LISTINGS (BUYER)
+
+//  GET ALL ACTIVE LISTINGS BUYER
 const getAllListingsWithHighestBid = async () => {
   const result = await pool.query(`
     SELECT 
@@ -49,7 +50,7 @@ const getAllListingsWithHighestBid = async () => {
   return result.rows;
 };
 
-// ✅ GET SELLER LISTINGS
+//  GET SELLER LISTINGS
 const getListingsBySeller = async (seller_id) => {
   const result = await pool.query(
     `SELECT * FROM listings WHERE seller_id = $1 ORDER BY created_at DESC`,
@@ -58,7 +59,7 @@ const getListingsBySeller = async (seller_id) => {
   return result.rows;
 };
 
-// ✅ SEARCH LISTINGS (THIS WAS MISSING ❗)
+//  SEARCH LISTINGS
 const searchListings = async ({ animal_type, minPrice, maxPrice, breed }) => {
   let query = `
     SELECT 
@@ -101,7 +102,7 @@ const searchListings = async ({ animal_type, minPrice, maxPrice, breed }) => {
   return result.rows;
 };
 
-// ✅ UPDATE STATUS
+//  UPDATE STATUS
 const updateListingStatus = async (listing_id, seller_id, status) => {
   const result = await pool.query(
     `
@@ -115,7 +116,7 @@ const updateListingStatus = async (listing_id, seller_id, status) => {
   return result.rows[0];
 };
 
-// ✅ UPDATE LISTING
+//  UPDATE LISTING
 const updateListing = async (
   id,
   seller_id,
@@ -138,7 +139,7 @@ const updateListing = async (
   return result.rows[0];
 };
 
-// ❌ DELETE LISTING (PERMANENT)
+//  DELETE LISTING PERMANENT
 const deleteListing = async (listing_id, seller_id) => {
   const result = await pool.query(
     `DELETE FROM listings WHERE id=$1 AND seller_id=$2 RETURNING *`,
@@ -151,7 +152,7 @@ module.exports = {
   createListing,
   getAllListingsWithHighestBid,
   getListingsBySeller,
-  searchListings,       
+  searchListings,
   updateListingStatus,
   updateListing,
   deleteListing,

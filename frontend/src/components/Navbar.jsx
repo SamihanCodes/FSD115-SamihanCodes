@@ -42,6 +42,9 @@ const Navbar = () => {
               <Link to="/interests/my">View Interests</Link>
               {" | "}
               <Link to="/bids/my">View Bids</Link>
+              {" | "}
+              <Link to="/chats">Open Chats</Link>
+
             </>
           )}
 
@@ -55,7 +58,7 @@ const Navbar = () => {
           {" | "}
           <Link to="/profile">Profile</Link>
 
-          {/* ✅ Hide My Transactions for Admin only */}
+          {/*  Hide My Transactions for Admin only */}
           {user.role !== "admin" && (
             <>
               {" | "}

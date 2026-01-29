@@ -1,7 +1,7 @@
 const pool = require("../config/db");
 const messageModel = require("../models/messageModel");
 
-
+//  Send message
 const sendMessage = async (req, res) => {
   try {
     const sender_id = req.user.id;
@@ -11,7 +11,7 @@ const sendMessage = async (req, res) => {
       return res.status(400).json({ message: "Missing fields" });
     }
 
-    // 🔒 Check listing status
+    //  Check listing status
     const listingRes = await pool.query(
       "SELECT status FROM listings WHERE id = $1",
       [listing_id]
@@ -41,17 +41,19 @@ const sendMessage = async (req, res) => {
   }
 };
 
-
 const getMessagesByListing = async (req, res) => {
   try {
     const { listingId } = req.params;
     const { buyerId } = req.query;
+
     const userId = req.user.id;
+    const role = req.user.role;
 
     const messages = await messageModel.getMessagesByListing(
       listingId,
       buyerId,
-      userId
+      userId,
+      role
     );
 
     res.json(messages);
@@ -61,34 +63,21 @@ const getMessagesByListing = async (req, res) => {
   }
 };
 
-
-// ✅ Get buyers who have chatted on a listing (seller sidebar)
+//  Seller sidebar
 const getBuyersForListing = async (req, res) => {
   try {
     const { listingId } = req.params;
 
-    const result = await pool.query(
-      `
-      SELECT DISTINCT
-        u.id,
-        u.email
-      FROM messages m
-      JOIN users u ON u.id = m.sender_id
-      WHERE m.listing_id = $1
-        AND u.role = 'buyer'
-      ORDER BY u.email
-      `,
-      [listingId]
+    const buyers = await messageModel.getBuyersForListing(
+      listingId
     );
 
-    res.json(result.rows);
+    res.json(buyers);
   } catch (error) {
     console.error("Get buyers error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
-
-
 
 module.exports = {
   sendMessage,

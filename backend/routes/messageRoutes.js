@@ -11,16 +11,15 @@ const {
 // Send message
 router.post("/", authenticate, sendMessage);
 
-// ✅ Get messages for a listing (optionally filtered by buyerId)
 router.get(
-  "/listing/:listingId",
+  "/:listingId",
   authenticate,
   getMessagesByListing
 );
 
-// ✅ Seller: get buyers who chatted on a listing
+// Seller sidebar
 router.get(
-  "/listing/:listingId/buyers",
+  "/:listingId/buyers",
   authenticate,
   getBuyersForListing
 );

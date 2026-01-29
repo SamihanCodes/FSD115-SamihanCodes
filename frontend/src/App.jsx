@@ -16,8 +16,8 @@ import MyInterests from "./pages/MyInterests"
 import AdminDashboard from "./pages/AdminDashboard";
 import Notifications from "./pages/Notifications";
 import EditListing from "./pages/EditListing";
-
-
+import SellerChats from "./pages/SellerChats";
+import ChatPage from "./pages/ChatPage";
 function App() {
   return (
     <Router>
@@ -121,9 +121,15 @@ function App() {
             </ProtectedRoute>
           }
         />
-
-
-
+       <Route
+          path="/chats"
+          element={
+            <ProtectedRoute>
+              <SellerChats />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/chat/:listingId" element={<ChatPage />} />
       </Routes>
     </Router>
   );

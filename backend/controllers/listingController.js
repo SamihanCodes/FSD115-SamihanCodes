@@ -1,11 +1,18 @@
 const listingModel = require("../models/listingModel");
 
-// ✅ CREATE LISTING
+//  CREATE LISTING WITH IMAGES
 const createListing = async (req, res) => {
   try {
     const seller_id = req.user.id;
     const { animal_type, breed, age, price, description } = req.body;
 
+    if (!animal_type || !price) {
+      return res.status(400).json({
+        message: "Animal type and price are required",
+      });
+    }
+
+    //  Cloudinary image URLs
     const images = Array.isArray(req.files)
       ? req.files.map((f) => f.path)
       : [];
@@ -22,11 +29,13 @@ const createListing = async (req, res) => {
 
     res.status(201).json(listing);
   } catch (error) {
-    console.error("Create listing error:", error);
-    res.status(500).json({ message: "Server error" });
-  }
+  console.error("CREATE LISTING FULL ERROR:", error);
+  res.status(500).json({ error: error.message });
+}
+
 };
 
+//  SEARCH LISTINGS 
 const searchListings = async (req, res) => {
   try {
     const { animal_type, minPrice, maxPrice, breed } = req.query;
@@ -45,19 +54,19 @@ const searchListings = async (req, res) => {
   }
 };
 
-
-// ✅ GET ALL LISTINGS
+//  GET ALL ACTIVE LISTINGS BUYERS
 const getAllListings = async (req, res) => {
   try {
     const listings =
       await listingModel.getAllListingsWithHighestBid();
     res.json(listings);
   } catch (error) {
+    console.error("Get all listings error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// ✅ GET MY LISTINGS
+//  GET SELLER'S OWN LISTINGS
 const getMyListings = async (req, res) => {
   try {
     const listings = await listingModel.getListingsBySeller(
@@ -65,17 +74,26 @@ const getMyListings = async (req, res) => {
     );
     res.json(listings);
   } catch (error) {
+    console.error("Get my listings error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// ✅ UPDATE STATUS
+//  UPDATE LISTING STATUS 
 const updateListingStatus = async (req, res) => {
   try {
+    const { status } = req.body;
+
+    if (!["active", "sold"].includes(status)) {
+      return res
+        .status(400)
+        .json({ message: "Invalid status" });
+    }
+
     const updated = await listingModel.updateListingStatus(
       req.params.id,
       req.user.id,
-      req.body.status
+      status
     );
 
     if (!updated)
@@ -85,11 +103,12 @@ const updateListingStatus = async (req, res) => {
 
     res.json(updated);
   } catch (error) {
+    console.error("Update status error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// ✅ UPDATE LISTING
+//  UPDATE LISTING DETAILS
 const updateListing = async (req, res) => {
   try {
     const updated = await listingModel.updateListing(
@@ -109,17 +128,21 @@ const updateListing = async (req, res) => {
 
     res.json(updated);
   } catch (error) {
+    console.error("Update listing error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// ❌ DELETE LISTING
+//  DELETE LISTING PERMANEN
 const deleteListing = async (req, res) => {
   try {
     const seller_id = req.user.id;
     const { id } = req.params;
 
-    const deleted = await listingModel.deleteListing(id, seller_id);
+    const deleted = await listingModel.deleteListing(
+      id,
+      seller_id
+    );
 
     if (!deleted) {
       return res
@@ -141,6 +164,5 @@ module.exports = {
   updateListingStatus,
   updateListing,
   searchListings,
-  deleteListing, 
+  deleteListing,
 };
-
