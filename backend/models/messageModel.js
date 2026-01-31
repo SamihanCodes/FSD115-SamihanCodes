@@ -1,6 +1,6 @@
 const pool = require("../config/db");
 
-// 🔹 Create new message
+// CREATE MESSAGE
 const createMessage = async (
   listing_id,
   sender_id,
@@ -19,16 +19,14 @@ const createMessage = async (
   return result.rows[0];
 };
 
-// 🔹 Get messages for a listing
-// - Seller: pass buyerId
-// - Buyer: buyerId === userId
-const getMessagesByListing = async (
-  listingId,
-  buyerId,
-  userId,
-  role
+// GET ALL MESSAGES BETWEEN TWO USERS FOR A LISTING
+const getMessagesBetweenUsers = async (
+  listing_id,
+  user1_id,
+  user2_id
 ) => {
-  let query = `
+  const result = await pool.query(
+    `
     SELECT 
       m.*,
       su.email AS sender_email,
@@ -37,36 +35,41 @@ const getMessagesByListing = async (
     JOIN users su ON m.sender_id = su.id
     JOIN users ru ON m.receiver_id = ru.id
     WHERE m.listing_id = $1
-  `;
+      AND (
+        (m.sender_id = $2 AND m.receiver_id = $3)
+        OR
+        (m.sender_id = $3 AND m.receiver_id = $2)
+      )
+    ORDER BY m.created_at ASC;
+    `,
+    [listing_id, user1_id, user2_id]
+  );
 
-  const values = [listingId];
-  let idx = 2;
-
-  // Buyer can only see their own messages
-  if (role === "buyer") {
-    query += `
-      AND (m.sender_id = $${idx} OR m.receiver_id = $${idx})
-    `;
-    values.push(userId);
-  }
-
-  // Seller selecting a buyer from sidebar
-  if (role === "seller" && buyerId) {
-    query += `
-      AND (m.sender_id = $${idx} OR m.receiver_id = $${idx})
-    `;
-    values.push(buyerId);
-  }
-
-  query += " ORDER BY m.created_at ASC";
-
-  const result = await pool.query(query, values);
   return result.rows;
 };
 
-// 🔹 Seller sidebar: buyers who messaged this listing
+// BUYER DASHBOARD: GET SELLERS HE HAS CHATTED WITH
+const getSellersForBuyer = async (buyer_id) => {
+  const result = await pool.query(
+    `
+    SELECT DISTINCT
+      u.id,
+      u.email
+    FROM messages m
+    JOIN users u ON u.id = m.receiver_id
+    WHERE m.sender_id = $1
+      AND u.role = 'seller'
+    `,
+    [buyer_id]
+  );
+
+  return result.rows;
+};
+
+// SELLER DASHBOARD: GET BUYERS FOR A LISTING
 const getBuyersForListing = async (listing_id) => {
-  const query = `
+  const result = await pool.query(
+    `
     SELECT DISTINCT
       u.id,
       u.email
@@ -75,14 +78,38 @@ const getBuyersForListing = async (listing_id) => {
     WHERE m.listing_id = $1
       AND u.role = 'buyer'
     ORDER BY u.email;
-  `;
+    `,
+    [listing_id]
+  );
 
-  const result = await pool.query(query, [listing_id]);
+  return result.rows;
+};
+const getBuyerChats = async (buyer_id) => {
+  const result = await pool.query(
+    `
+    SELECT DISTINCT
+      m.listing_id,
+      l.animal_type,
+      l.price,
+      u.id AS seller_id,
+      u.email AS seller_email
+    FROM messages m
+    JOIN listings l ON m.listing_id = l.id
+    JOIN users u ON u.id = l.seller_id
+    WHERE m.sender_id = $1 OR m.receiver_id = $1
+    ORDER BY l.created_at DESC
+    `,
+    [buyer_id]
+  );
+
   return result.rows;
 };
 
+
 module.exports = {
   createMessage,
-  getMessagesByListing,
+  getMessagesBetweenUsers,
+  getSellersForBuyer,
   getBuyersForListing,
+  getBuyerChats,
 };

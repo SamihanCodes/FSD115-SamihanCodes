@@ -1,7 +1,6 @@
-const pool = require("../config/db");
 const messageModel = require("../models/messageModel");
 
-//  Send message
+// SEND MESSAGE (buyer or seller)
 const sendMessage = async (req, res) => {
   try {
     const sender_id = req.user.id;
@@ -9,22 +8,6 @@ const sendMessage = async (req, res) => {
 
     if (!listing_id || !receiver_id || !message) {
       return res.status(400).json({ message: "Missing fields" });
-    }
-
-    //  Check listing status
-    const listingRes = await pool.query(
-      "SELECT status FROM listings WHERE id = $1",
-      [listing_id]
-    );
-
-    if (listingRes.rows.length === 0) {
-      return res.status(404).json({ message: "Listing not found" });
-    }
-
-    if (listingRes.rows[0].status === "sold") {
-      return res
-        .status(403)
-        .json({ message: "Chat closed. Listing sold." });
     }
 
     const msg = await messageModel.createMessage(
@@ -41,19 +24,16 @@ const sendMessage = async (req, res) => {
   }
 };
 
-const getMessagesByListing = async (req, res) => {
+// GET CHAT BETWEEN TWO USERS FOR A LISTING
+const getMessagesBetweenUsers = async (req, res) => {
   try {
-    const { listingId } = req.params;
-    const { buyerId } = req.query;
-
+    const { listingId, otherUserId } = req.params;
     const userId = req.user.id;
-    const role = req.user.role;
 
-    const messages = await messageModel.getMessagesByListing(
+    const messages = await messageModel.getMessagesBetweenUsers(
       listingId,
-      buyerId,
       userId,
-      role
+      otherUserId
     );
 
     res.json(messages);
@@ -63,24 +43,46 @@ const getMessagesByListing = async (req, res) => {
   }
 };
 
-//  Seller sidebar
+// BUYER DASHBOARD: GET SELLERS
+const getSellersForBuyer = async (req, res) => {
+  try {
+    const buyerId = req.user.id;
+    const sellers = await messageModel.getSellersForBuyer(buyerId);
+    res.json(sellers);
+  } catch (error) {
+    console.error("Get sellers error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// SELLER DASHBOARD: GET BUYERS FOR LISTING
 const getBuyersForListing = async (req, res) => {
   try {
     const { listingId } = req.params;
-
-    const buyers = await messageModel.getBuyersForListing(
-      listingId
-    );
-
+    const buyers = await messageModel.getBuyersForListing(listingId);
     res.json(buyers);
   } catch (error) {
     console.error("Get buyers error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
+const getBuyerChats = async (req, res) => {
+  try {
+    const buyer_id = req.user.id;
+
+    const chats = await messageModel.getBuyerChats(buyer_id);
+    res.json(chats);
+  } catch (error) {
+    console.error("Get buyer chats error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 
 module.exports = {
   sendMessage,
-  getMessagesByListing,
+  getMessagesBetweenUsers,
+  getSellersForBuyer,
   getBuyersForListing,
+  getBuyerChats,
 };

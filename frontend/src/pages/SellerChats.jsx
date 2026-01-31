@@ -1,73 +1,67 @@
 import { useEffect, useState } from "react";
 import { getMyListings } from "../api/listings";
 import { getBuyersForListing } from "../api/messages";
-import SellerChatWindow from "../components/SellerChatWindow";
+import { useNavigate } from "react-router-dom";
 
 const SellerChats = () => {
   const [listings, setListings] = useState([]);
-  const [buyers, setBuyers] = useState([]);
-  const [selectedListing, setSelectedListing] = useState(null);
-  const [activeChat, setActiveChat] = useState(null);
+  const [buyersMap, setBuyersMap] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getMyListings().then((res) => setListings(res.data));
+    getMyListings().then((res) => {
+      setListings(res.data);
+    });
   }, []);
 
-  const loadBuyers = async (listing) => {
-    setSelectedListing(listing);
-    setActiveChat(null);
-    const res = await getBuyersForListing(listing.id);
-    setBuyers(res.data);
+  const loadBuyers = async (listingId) => {
+    const res = await getBuyersForListing(listingId);
+    setBuyersMap((prev) => ({
+      ...prev,
+      [listingId]: res.data,
+    }));
   };
 
   return (
-    <div className="container" style={{ display: "flex", gap: "20px" }}>
-      
-      {/* LEFT — Listings */}
-      <div className="card" style={{ width: "25%" }}>
-        <h3>My Listings</h3>
-        {listings.map((l) => (
-          <div
-            key={l.id}
-            style={{ cursor: "pointer", marginBottom: "8px" }}
-            onClick={() => loadBuyers(l)}
-          >
-            {l.animal_type}
-          </div>
-        ))}
-      </div>
+    <div className="container">
+      <h2>Seller Chats</h2>
 
-      {/* MIDDLE — Buyers */}
-      <div className="card" style={{ width: "25%" }}>
-        <h3>Buyers</h3>
-        {!selectedListing && <p>Select a listing</p>}
-        {buyers.map((b) => (
-          <div
-            key={b.id}
-            style={{ cursor: "pointer", marginBottom: "8px" }}
-            onClick={() =>
-              setActiveChat({
-                listingId: selectedListing.id,
-                buyerId: b.id,
-                buyerEmail: b.email,
-              })
-            }
-          >
-            {b.email}
-          </div>
-        ))}
-      </div>
+      {listings.length === 0 && (
+        <p>You have no listings.</p>
+      )}
 
-      {/* RIGHT — Chat */}
-      <div style={{ flex: 1 }}>
-        {activeChat ? (
-          <SellerChatWindow chat={activeChat} />
-        ) : (
-          <div className="card">
-            <p>Select a buyer to start chat.</p>
-          </div>
-        )}
-      </div>
+      {listings.map((l) => (
+        <div key={l.id} className="card">
+          <strong>{l.animal_type}</strong>
+          <p>₹{l.price}</p>
+
+          <button
+            style={{ marginTop: "8px" }}
+            onClick={() => loadBuyers(l.id)}
+          >
+            View Buyers
+          </button>
+
+          {/* BUYERS FOR THIS LISTING */}
+          {buyersMap[l.id]?.map((b) => (
+            <div
+              key={b.id}
+              style={{
+                marginTop: "8px",
+                padding: "8px",
+                background: "#f1f5f9",
+                borderRadius: "6px",
+                cursor: "pointer",
+              }}
+              onClick={() =>
+                navigate(`/chat/${l.id}/${b.id}`)
+              }
+            >
+              {b.email}
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 };

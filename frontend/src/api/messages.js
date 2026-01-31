@@ -1,18 +1,16 @@
 import api from "./axios";
 
-// get buyers who contacted seller for a listing
-export const getBuyersForListing = (listingId) => {
-  return api.get(`/messages/listing/${listingId}/buyers`);
-};
+export const sendMessage = (data) =>
+  api.post("/messages", data);
 
-// get chat messages for a listing + buyer
-export const getMessagesByListing = (listingId, buyerId) => {
-  return api.get(`/messages/listing/${listingId}`, {
+export const getMessagesByListing = (listingId, buyerId) =>
+  api.get(`/messages/listing/${listingId}`, {
     params: { buyerId },
   });
-};
 
-// send message
-export const sendMessage = (data) => {
-  return api.post("/messages", data);
-};
+export const getBuyersForListing = (listingId) =>
+  api.get(`/messages/listing/${listingId}/buyers`);
+// Buyer: get all my chats
+export const getBuyerChats = () =>
+  api.get("/messages/buyer");
+

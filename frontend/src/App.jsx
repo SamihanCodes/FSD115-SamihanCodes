@@ -16,10 +16,10 @@ import MyInterests from "./pages/MyInterests";
 import AdminDashboard from "./pages/AdminDashboard";
 import Notifications from "./pages/Notifications";
 import EditListing from "./pages/EditListing";
-
-// Chat pages
+import BuyerChats from "./pages/BuyerChats";
 import SellerChats from "./pages/SellerChats";
-import BuyerChatPage from "./pages/BuyerChatPage";
+import ChatPage from "./pages/ChatPage";
+
 
 function App() {
   return (
@@ -141,24 +141,10 @@ function App() {
         />
 
         {/* Chats */}
-        <Route
-          path="/buyer/chats/:listingId"
-          element={
-            <ProtectedRoute>
-              <BuyerChatPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/buyer/chats" element={<BuyerChats />} />
+        <Route path="/seller/chats" element={<SellerChats />} />
+        <Route path="/chat/:listingId" element={<ChatPage />} />
 
-
-        <Route
-          path="/seller/chats"
-          element={
-            <ProtectedRoute>
-              <SellerChats />
-            </ProtectedRoute>
-          }
-        />
       </Routes>
     </Router>
   );

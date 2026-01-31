@@ -49,6 +49,13 @@ const Listings = () => {
     }
   };
 
+  // ✅ THIS WAS MISSING
+  const startChat = (sellerId, listingId) => {
+    // For now we just navigate.
+    // Later this can also create chat in DB if needed.
+    navigate(`/chat/${listingId}?seller=${sellerId}`);
+  };
+
   return (
     <div className="container">
       <h2 style={{ color: "#142C52", marginBottom: "16px" }}>
@@ -174,18 +181,14 @@ const Listings = () => {
             </div>
           )}
 
-          {/* CHAT (FIXED) */}
+          {/* CHAT */}
           {user?.role === "buyer" && (
-            <div style={{ marginTop: "16px" }}>
-              <button
-                style={{ backgroundColor: "#2563EB" }}
-                onClick={() =>
-                  navigate(`/buyer/chats/${l.id}`)
-                }
-              >
-                Chat with Seller
-              </button>
-            </div>
+            <button 
+              style={{marginTop:"5px"}}
+              onClick={() => startChat(l.seller_id, l.id)}
+            >
+              Chat with Seller
+            </button>
           )}
         </div>
       ))}

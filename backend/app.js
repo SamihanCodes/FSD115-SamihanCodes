@@ -17,6 +17,7 @@ app.use("/api/interests", require("./routes/interestRoutes"));
 app.use("/api/bids", require("./routes/bidRoutes"));
 app.use("/api/transactions", require("./routes/transactionRoutes"));
 app.use("/api/messages", require("./routes/messageRoutes"));
+app.use("/api/chats", require("./routes/chatRoutes"));
 app.use("/api/notifications", require("./routes/notificationRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api/admin/analytics", require("./routes/adminAnalyticsRoutes"));

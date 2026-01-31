@@ -4,24 +4,35 @@ const authenticate = require("../middleware/authMiddleware");
 
 const {
   sendMessage,
-  getMessagesByListing,
+  getMessagesBetweenUsers,
+  getSellersForBuyer,
   getBuyersForListing,
+  getBuyerChats,
 } = require("../controllers/messageController");
 
-// Send message
+// SEND MESSAGE (buyer or seller)
 router.post("/", authenticate, sendMessage);
 
+// CHAT WINDOW (buyer <-> seller for a listing)
 router.get(
-  "/:listingId",
+  "/chat/:listingId/:otherUserId",
   authenticate,
-  getMessagesByListing
+  getMessagesBetweenUsers
 );
 
-// Seller sidebar
+// BUYER DASHBOARD - get all sellers buyer has chatted with
 router.get(
-  "/:listingId/buyers",
+  "/buyer/sellers",
+  authenticate,
+  getSellersForBuyer
+);
+
+// SELLER DASHBOARD - get buyers for a specific listing
+router.get(
+  "/seller/listing/:listingId/buyers",
   authenticate,
   getBuyersForListing
 );
+router.get("/buyer", authenticate, getBuyerChats);
 
 module.exports = router;

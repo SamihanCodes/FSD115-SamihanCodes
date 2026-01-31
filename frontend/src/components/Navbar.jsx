@@ -44,7 +44,7 @@ const Navbar = () => {
               {" | "}
               <Link to="/bids/my">View Bids</Link>
               {" | "}
-              <Link to="/seller/chats">Open Chats</Link>
+              <Link to="/seller/chats"> Chats</Link>
             </>
           )}
 
@@ -54,7 +54,7 @@ const Navbar = () => {
               {" | "}
               <Link to="/listings">Listings</Link>
               {" | "}
-              <Link to="/buyer/chats">My Chats</Link>
+              <Link to="/buyer/chats"> Chats</Link>
             </>
           )}
 
