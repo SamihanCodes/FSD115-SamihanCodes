@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { sendMessage, getMessagesByListing } from "../api/messages";
+import { sendMessage, getMessagesBetweenUsers } from "../api/messages";
 import { useAuth } from "../context/AuthContext";
 
 const ChatWindow = ({ listingId, receiverId }) => {
@@ -8,13 +8,14 @@ const ChatWindow = ({ listingId, receiverId }) => {
   const [text, setText] = useState("");
 
   const fetchMessages = () => {
-    getMessagesByListing(listingId, receiverId).then((res) =>
-      setMessages(res.data)
-    );
+    if (!listingId || !receiverId) return;
+
+    getMessagesBetweenUsers(listingId, receiverId)
+      .then((res) => setMessages(res.data));
   };
 
   useEffect(() => {
-    if (listingId) fetchMessages();
+    fetchMessages();
   }, [listingId, receiverId]);
 
   const handleSend = async () => {
@@ -34,8 +35,17 @@ const ChatWindow = ({ listingId, receiverId }) => {
     <div>
       <div className="card" style={{ minHeight: 300 }}>
         {messages.map((m) => (
-          <div key={m.id}>
-            <strong>{m.sender_email}</strong>: {m.message}
+          <div
+            key={m.id}
+            style={{
+              textAlign: m.sender_id === user.id ? "right" : "left",
+              marginBottom: "6px"
+            }}
+          >
+            <strong>
+              {m.sender_id === user.id ? "You" : m.sender_email}
+            </strong>
+            : {m.message}
           </div>
         ))}
       </div>

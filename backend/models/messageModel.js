@@ -48,17 +48,21 @@ const getMessagesBetweenUsers = async (
   return result.rows;
 };
 
-// BUYER DASHBOARD: GET SELLERS HE HAS CHATTED WITH
+// BUYER DASHBOARD: ALL SELLER CHATS
 const getSellersForBuyer = async (buyer_id) => {
   const result = await pool.query(
     `
     SELECT DISTINCT
-      u.id,
-      u.email
+      l.id AS listing_id,
+      l.animal_type,
+      l.price,
+      u.id AS seller_id,
+      u.email AS seller_email
     FROM messages m
-    JOIN users u ON u.id = m.receiver_id
-    WHERE m.sender_id = $1
-      AND u.role = 'seller'
+    JOIN listings l ON m.listing_id = l.id
+    JOIN users u ON u.id = l.seller_id
+    WHERE m.sender_id = $1 OR m.receiver_id = $1
+    ORDER BY l.created_at DESC;
     `,
     [buyer_id]
   );
@@ -66,7 +70,29 @@ const getSellersForBuyer = async (buyer_id) => {
   return result.rows;
 };
 
-// SELLER DASHBOARD: GET BUYERS FOR A LISTING
+// BUYER DASHBOARD: CHAT THREADS (navbar)
+const getBuyerChats = async (buyer_id) => {
+  const result = await pool.query(
+    `
+    SELECT DISTINCT
+      l.id AS listing_id,
+      l.animal_type,
+      l.price,
+      u.id AS seller_id,
+      u.email AS seller_email
+    FROM messages m
+    JOIN listings l ON m.listing_id = l.id
+    JOIN users u ON u.id = l.seller_id
+    WHERE m.sender_id = $1 OR m.receiver_id = $1
+    ORDER BY l.created_at DESC;
+    `,
+    [buyer_id]
+  );
+
+  return result.rows;
+};
+
+// SELLER DASHBOARD: BUYERS FOR A LISTING
 const getBuyersForListing = async (listing_id) => {
   const result = await pool.query(
     `
@@ -84,32 +110,33 @@ const getBuyersForListing = async (listing_id) => {
 
   return result.rows;
 };
-const getBuyerChats = async (buyer_id) => {
+
+// SELLER DASHBOARD: ALL BUYER CHATS (ALL LISTINGS)
+const getSellerChats = async (seller_id) => {
   const result = await pool.query(
     `
     SELECT DISTINCT
       m.listing_id,
       l.animal_type,
-      l.price,
-      u.id AS seller_id,
-      u.email AS seller_email
+      u.id AS buyer_id,
+      u.email AS buyer_email
     FROM messages m
     JOIN listings l ON m.listing_id = l.id
-    JOIN users u ON u.id = l.seller_id
-    WHERE m.sender_id = $1 OR m.receiver_id = $1
-    ORDER BY l.created_at DESC
+    JOIN users u ON u.id = m.sender_id
+    WHERE l.seller_id = $1
+    ORDER BY l.created_at DESC;
     `,
-    [buyer_id]
+    [seller_id]
   );
 
   return result.rows;
 };
 
-
 module.exports = {
   createMessage,
   getMessagesBetweenUsers,
   getSellersForBuyer,
+  getBuyerChats,        // 👈 THIS WAS MISSING (critical)
   getBuyersForListing,
-  getBuyerChats,
+  getSellerChats,
 };

@@ -24,7 +24,7 @@ const sendMessage = async (req, res) => {
   }
 };
 
-// GET CHAT BETWEEN TWO USERS FOR A LISTING
+// CHAT WINDOW: BETWEEN TWO USERS FOR A LISTING
 const getMessagesBetweenUsers = async (req, res) => {
   try {
     const { listingId, otherUserId } = req.params;
@@ -43,7 +43,7 @@ const getMessagesBetweenUsers = async (req, res) => {
   }
 };
 
-// BUYER DASHBOARD: GET SELLERS
+// BUYER DASHBOARD: ALL SELLER CHATS
 const getSellersForBuyer = async (req, res) => {
   try {
     const buyerId = req.user.id;
@@ -55,7 +55,19 @@ const getSellersForBuyer = async (req, res) => {
   }
 };
 
-// SELLER DASHBOARD: GET BUYERS FOR LISTING
+// BUYER DASHBOARD: ALL CHAT THREADS
+const getBuyerChats = async (req, res) => {
+  try {
+    const buyerId = req.user.id;
+    const chats = await messageModel.getBuyerChats(buyerId);
+    res.json(chats);
+  } catch (error) {
+    console.error("Get buyer chats error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// SELLER DASHBOARD: BUYERS FOR ONE LISTING
 const getBuyersForListing = async (req, res) => {
   try {
     const { listingId } = req.params;
@@ -66,23 +78,24 @@ const getBuyersForListing = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-const getBuyerChats = async (req, res) => {
-  try {
-    const buyer_id = req.user.id;
 
-    const chats = await messageModel.getBuyerChats(buyer_id);
+// SELLER DASHBOARD: ALL BUYER CHATS (ALL LISTINGS)
+const getSellerChats = async (req, res) => {
+  try {
+    const sellerId = req.user.id;
+    const chats = await messageModel.getSellerChats(sellerId);
     res.json(chats);
   } catch (error) {
-    console.error("Get buyer chats error:", error);
+    console.error("Get seller chats error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
-
 
 module.exports = {
   sendMessage,
   getMessagesBetweenUsers,
   getSellersForBuyer,
+  getBuyerChats,       // 👈 THIS WAS MISSING
   getBuyersForListing,
-  getBuyerChats,
+  getSellerChats,
 };

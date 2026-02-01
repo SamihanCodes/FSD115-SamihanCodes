@@ -7,6 +7,7 @@ const {
   getMessagesBetweenUsers,
   getSellersForBuyer,
   getBuyersForListing,
+  getSellerChats,
   getBuyerChats,
 } = require("../controllers/messageController");
 
@@ -20,19 +21,32 @@ router.get(
   getMessagesBetweenUsers
 );
 
-// BUYER DASHBOARD - get all sellers buyer has chatted with
+// BUYER DASHBOARD → all sellers buyer chatted with
 router.get(
   "/buyer/sellers",
   authenticate,
   getSellersForBuyer
 );
 
-// SELLER DASHBOARD - get buyers for a specific listing
+// BUYER DASHBOARD → all chats
+router.get(
+  "/buyer",
+  authenticate,
+  getBuyerChats
+);
+
+// SELLER → buyers for a specific listing
 router.get(
   "/seller/listing/:listingId/buyers",
   authenticate,
   getBuyersForListing
 );
-router.get("/buyer", authenticate, getBuyerChats);
+
+// SELLER DASHBOARD → all buyer chats across all listings
+router.get(
+  "/seller/chats",
+  authenticate,
+  getSellerChats
+);
 
 module.exports = router;

@@ -11,55 +11,52 @@ const SellerChats = () => {
   useEffect(() => {
     getMyListings().then((res) => {
       setListings(res.data);
+
+      // For each listing, load buyers
+      res.data.forEach((listing) => {
+        getBuyersForListing(listing.id).then((r) => {
+          setBuyersMap((prev) => ({
+            ...prev,
+            [listing.id]: r.data,
+          }));
+        });
+      });
     });
   }, []);
-
-  const loadBuyers = async (listingId) => {
-    const res = await getBuyersForListing(listingId);
-    setBuyersMap((prev) => ({
-      ...prev,
-      [listingId]: res.data,
-    }));
-  };
 
   return (
     <div className="container">
       <h2>Seller Chats</h2>
 
-      {listings.length === 0 && (
-        <p>You have no listings.</p>
-      )}
+      {listings.length === 0 && <p>No listings found</p>}
 
       {listings.map((l) => (
         <div key={l.id} className="card">
-          <strong>{l.animal_type}</strong>
-          <p>₹{l.price}</p>
+          <h3>{l.animal_type}</h3>
+          <p>Buyers who contacted you:</p>
 
-          <button
-            style={{ marginTop: "8px" }}
-            onClick={() => loadBuyers(l.id)}
-          >
-            View Buyers
-          </button>
-
-          {/* BUYERS FOR THIS LISTING */}
-          {buyersMap[l.id]?.map((b) => (
-            <div
-              key={b.id}
-              style={{
-                marginTop: "8px",
-                padding: "8px",
-                background: "#f1f5f9",
-                borderRadius: "6px",
-                cursor: "pointer",
-              }}
-              onClick={() =>
-                navigate(`/chat/${l.id}/${b.id}`)
-              }
-            >
-              {b.email}
-            </div>
-          ))}
+          {buyersMap[l.id]?.length > 0 ? (
+            buyersMap[l.id].map((buyer) => (
+              <div
+                key={buyer.id}
+                style={{
+                  cursor: "pointer",
+                  padding: "6px",
+                  borderBottom: "1px solid #e5e7eb",
+                  color: "#16808D",
+                }}
+                onClick={() =>
+                  navigate(`/chat/${l.id}?buyer=${buyer.id}`)
+                }
+              >
+                {buyer.email}
+              </div>
+            ))
+          ) : (
+            <p style={{ color: "#94a3b8" }}>
+              No chats yet for this listing
+            </p>
+          )}
         </div>
       ))}
     </div>
