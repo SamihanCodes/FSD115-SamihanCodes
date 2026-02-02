@@ -53,8 +53,6 @@ const Navbar = () => {
             <>
               {" | "}
               <Link to="/listings">Listings</Link>
-              {" | "}
-              <Link to="/buyer/chats"> Chats</Link>
             </>
           )}
 
