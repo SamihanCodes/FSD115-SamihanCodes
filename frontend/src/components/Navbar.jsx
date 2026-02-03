@@ -32,7 +32,10 @@ const Navbar = () => {
           {" | "}
           <Link to="/dashboard">Dashboard</Link>
 
-          {/* SELLER NAV */}
+          {" | "}
+          <Link to="/profile">Profile</Link>
+
+          {/* SELLER LINKS */}
           {user.role === "seller" && (
             <>
               {" | "}
@@ -44,11 +47,11 @@ const Navbar = () => {
               {" | "}
               <Link to="/bids/my">View Bids</Link>
               {" | "}
-              <Link to="/seller/chats"> Chats</Link>
+              <Link to="/seller/chats">Chats</Link>
             </>
           )}
 
-          {/* BUYER NAV */}
+          {/* BUYER LINKS */}
           {user.role === "buyer" && (
             <>
               {" | "}
@@ -56,10 +59,7 @@ const Navbar = () => {
             </>
           )}
 
-          {" | "}
-          <Link to="/profile">Profile</Link>
-
-          {/* Hide My Transactions for Admin only */}
+          {/* COMMON (NON-ADMIN) */}
           {user.role !== "admin" && (
             <>
               {" | "}
@@ -67,13 +67,13 @@ const Navbar = () => {
             </>
           )}
 
+          {/* ADMIN LINKS */}
           {user.role === "admin" && (
             <>
               {" | "}
               <Link to="/admin">Admin</Link>
             </>
           )}
-
           {" | "}
           <Link
             to="/notifications"
@@ -113,5 +113,4 @@ const Navbar = () => {
     </nav>
   );
 };
-
 export default Navbar;
