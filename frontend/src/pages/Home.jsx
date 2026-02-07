@@ -10,7 +10,7 @@ const Home = () => {
       {/* HERO SECTION */}
       <div
         style={{
-          height: "85vh",
+          height: "95vh",
           backgroundImage: `linear-gradient(rgba(2,57,74,0.7), rgba(2,57,74,0.7)), url(${hero})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -207,5 +207,4 @@ const Home = () => {
     </div>
   );
 };
-
 export default Home;
