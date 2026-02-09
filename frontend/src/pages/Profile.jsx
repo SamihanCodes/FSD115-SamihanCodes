@@ -1,9 +1,11 @@
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { updateProfile, changePassword } from "../api/users";
+import Footer from "../components/Footer";
+import "./Profile.css";
 
 const Profile = () => {
-  const { user, setUser } = useAuth();
+  const { user, updateUser } = useAuth();
 
   const [profileForm, setProfileForm] = useState({
     name: user?.name || "",
@@ -18,11 +20,8 @@ const Profile = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  if (!user) {
-    return <div className="container">Loading profile...</div>;
-  }
+  if (!user) return <div className="profile-page">Loading...</div>;
 
-  // Handle profile update
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -30,14 +29,13 @@ const Profile = () => {
 
     try {
       const res = await updateProfile(profileForm);
-      setUser(res.data); // update global auth state
+      updateUser(res.data);
       setMessage("Profile updated successfully");
-    } catch (err) {
-      setError(err.response?.data?.message || "Profile update failed");
+    } catch {
+      setError("Profile update failed");
     }
   };
 
-  // Handle password change
   const handlePasswordChange = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -47,83 +45,89 @@ const Profile = () => {
       await changePassword(passwordForm);
       setMessage("Password changed successfully");
       setPasswordForm({ oldPassword: "", newPassword: "" });
-    } catch (err) {
-      setError(err.response?.data?.message || "Password change failed");
+    } catch {
+      setError("Password change failed");
     }
   };
 
   return (
-    <div className="container">
-      <h2 style={{ marginBottom: "20px" }}>My Profile</h2>
+    <>
+      <div className="profile-page">
+        {/* NEW PATTERN BACKGROUND */}
+        <div className="pattern-bg" />
 
-      {/* PROFILE INFO */}
-      <div className="card">
-        <h3>Account Information</h3>
+        <div className="glass-container">
+          <h1 className="page-heading">
+            My Profile <span>👤</span>
+          </h1>
 
-        <p><strong>Role:</strong> {user.role}</p>
+          {/* ACCOUNT INFO */}
+          <div className="profile-card">
+            <h3>Account Information</h3>
+            <span className="role-badge">{user.role}</span>
 
-        <form onSubmit={handleProfileUpdate}>
-          <label>Name</label>
-          <input
-            value={profileForm.name}
-            onChange={(e) =>
-              setProfileForm({ ...profileForm, name: e.target.value })
-            }
-          />
+            <form onSubmit={handleProfileUpdate}>
+              <label>Full Name</label>
+              <input
+                value={profileForm.name}
+                onChange={(e) =>
+                  setProfileForm({ ...profileForm, name: e.target.value })
+                }
+              />
 
-          <label>Email</label>
-          <input
-            type="email"
-            value={profileForm.email}
-            onChange={(e) =>
-              setProfileForm({ ...profileForm, email: e.target.value })
-            }
-          />
+              <label>Email</label>
+              <input
+                type="email"
+                value={profileForm.email}
+                onChange={(e) =>
+                  setProfileForm({ ...profileForm, email: e.target.value })
+                }
+              />
 
-          <button style={{ marginTop: "10px" }}>
-            Update Profile
-          </button>
-        </form>
+              <button className="primary-btn">Update Profile</button>
+            </form>
+          </div>
+
+          {/* PASSWORD */}
+          <div className="profile-card">
+            <h3>Change Password</h3>
+
+            <form onSubmit={handlePasswordChange}>
+              <label>Current Password</label>
+              <input
+                type="password"
+                value={passwordForm.oldPassword}
+                onChange={(e) =>
+                  setPasswordForm({
+                    ...passwordForm,
+                    oldPassword: e.target.value,
+                  })
+                }
+              />
+
+              <label>New Password</label>
+              <input
+                type="password"
+                value={passwordForm.newPassword}
+                onChange={(e) =>
+                  setPasswordForm({
+                    ...passwordForm,
+                    newPassword: e.target.value,
+                  })
+                }
+              />
+
+              <button className="secondary-btn">Change Password</button>
+            </form>
+          </div>
+
+          {message && <p className="success-msg">{message}</p>}
+          {error && <p className="error-msg">{error}</p>}
+        </div>
       </div>
 
-      {/* PASSWORD CHANGE */}
-      <div className="card">
-        <h3>Change Password</h3>
-
-        <form onSubmit={handlePasswordChange}>
-          <label>Current Password</label>
-          <input
-            type="password"
-            value={passwordForm.oldPassword}
-            onChange={(e) =>
-              setPasswordForm({ ...passwordForm, oldPassword: e.target.value })
-            }
-          />
-
-          <label>New Password</label>
-          <input
-            type="password"
-            value={passwordForm.newPassword}
-            onChange={(e) =>
-              setPasswordForm({ ...passwordForm, newPassword: e.target.value })
-            }
-          />
-
-          <button
-            style={{
-              marginTop: "10px",
-              backgroundColor: "#16808D",
-            }}
-          >
-            Change Password
-          </button>
-        </form>
-      </div>
-
-      {/* FEEDBACK */}
-      {message && <p className="success">{message}</p>}
-      {error && <p className="error">{error}</p>}
-    </div>
+      <Footer />
+    </>
   );
 };
 

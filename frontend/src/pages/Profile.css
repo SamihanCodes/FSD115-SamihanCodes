@@ -1,0 +1,205 @@
+/* =========================
+   ROOT COLOR VARIABLES
+   ========================= */
+:root {
+  --bg-light: #cce7ec;
+  --primary-teal: #4c97a8;
+  --navy-core: #02394a;
+  --navy-dark: #012136;
+  --deep-bg: #01181f;
+  --surface: #ffffff;
+}
+
+/* =========================
+   PAGE BACKGROUND
+   ========================= */
+.profile-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 70px 20px;
+  background: linear-gradient(
+    135deg,
+    var(--bg-light),
+    #eaf6f8
+  );
+  overflow: hidden;
+}
+
+/* =========================
+   ANIMATED GRID PATTERN
+   ========================= */
+.profile-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(76, 151, 168, 0.15) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      rgba(76, 151, 168, 0.15) 1px,
+      transparent 1px
+    );
+  background-size: 26px 26px;
+  animation: moveGrid 18s linear infinite;
+}
+
+@keyframes moveGrid {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(30px, 30px);
+  }
+}
+
+/* =========================
+   GLASS CONTAINER
+   ========================= */
+.glass-container {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  border-radius: 24px;
+  padding: 44px;
+  box-shadow: 0 30px 70px rgba(2, 57, 74, 0.18);
+}
+
+/* =========================
+   PAGE HEADING
+   ========================= */
+.page-heading {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--navy-core);
+  margin-bottom: 40px;
+}
+
+.page-heading span {
+  font-size: 34px;
+}
+
+/* =========================
+   PROFILE CARDS
+   ========================= */
+.profile-card {
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 16px 36px rgba(2, 57, 74, 0.14);
+  transition: all 0.35s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 60px rgba(2, 57, 74, 0.25);
+}
+
+.profile-card h3 {
+  color: var(--navy-core);
+  margin-bottom: 14px;
+}
+
+/* =========================
+   ROLE BADGE
+   ========================= */
+.role-badge {
+  display: inline-block;
+  background: linear-gradient(
+    135deg,
+    var(--primary-teal),
+    var(--navy-core)
+  );
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  margin-bottom: 18px;
+  text-transform: capitalize;
+}
+
+/* =========================
+   FORMS
+   ========================= */
+.profile-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-card label {
+  font-weight: 600;
+  color: #071426;
+}
+
+.profile-card input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #cce7ec;
+  font-size: 14px;
+}
+
+.profile-card input:focus {
+  outline: none;
+  border-color: var(--primary-teal);
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+.primary-btn,
+.secondary-btn {
+  width: fit-content;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  color: white;
+  transition: all 0.25s ease;
+}
+
+.primary-btn {
+  background: linear-gradient(
+    135deg,
+    var(--primary-teal),
+    var(--navy-core)
+  );
+}
+
+.secondary-btn {
+  background: linear-gradient(
+    135deg,
+    #16808d,
+    var(--navy-core)
+  );
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(2, 57, 74, 0.35);
+}
+
+/* =========================
+   FEEDBACK
+   ========================= */
+.success-msg {
+  color: #178740;
+  font-weight: 600;
+  margin-top: 14px;
+}
+
+.error-msg {
+  color: #ef4444;
+  font-weight: 600;
+  margin-top: 14px;
+}

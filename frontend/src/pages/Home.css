@@ -29,14 +29,12 @@
 .hero-content h1 {
   font-size: 56px;
   margin-bottom: 16px;
-  letter-spacing: 0.5px;
 }
 
 .hero-content p {
   font-size: 20px;
   max-width: 600px;
   margin: 0 auto;
-  opacity: 0.95;
 }
 
 .hero-btn {
@@ -48,16 +46,10 @@
   font-weight: 600;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.hero-btn:hover {
-  background-color: #178740;
-  transform: translateY(-2px);
 }
 
 /* =========================
-   FEATURES SECTION
+   FEATURES
    ========================= */
 .features {
   margin-top: 70px;
@@ -71,78 +63,101 @@
 
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 28px;
 }
 
-/* FEATURE CARD */
+/* =========================
+   PREMIUM CARD (NEW)
+   ========================= */
 .feature-card {
-  background: var(--surface);
-  border-radius: 14px;
-  padding: 28px 24px;
-  border: 1px solid rgba(76, 151, 168, 0.25);
-  box-shadow: 0 10px 30px rgba(2, 57, 74, 0.08);
-  transition: all 0.3s ease;
   position: relative;
+  background: linear-gradient(to bottom, #CCE7EC, #EAF4F6);
+  border-radius: 14px;
+  padding: 32px 26px;
+  overflow: hidden;
+  transition: all 0.35s ease;
 }
 
+/* EXPANDING CIRCLE */
 .feature-card::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 5px;
-  height: 100%;
-  background: linear-gradient(
-    180deg,
-    var(--primary-teal),
-    var(--navy-core)
-  );
-  border-radius: 14px 0 0 14px;
+  top: -16px;
+  right: -16px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--navy-core), var(--navy-dark));
+  border-radius: 50%;
+  transform: scale(1);
+  transition: transform 0.45s ease;
+  z-index: 0;
 }
 
-.feature-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(2, 57, 74, 0.15);
-  border-color: var(--primary-teal);
+.feature-card:hover::before {
+  transform: scale(30);
 }
 
-.feature-card .icon {
-  font-size: 36px;
-  margin-bottom: 16px;
-}
-
-.feature-card .heading {
-  font-size: 18px;
+/* TEXT */
+.card-title {
+  position: relative;
+  font-size: 20px;
   font-weight: 700;
   color: var(--navy-core);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  z-index: 1;
 }
 
-.feature-card p {
-  font-size: 14.5px;
-  color: #475569;
+.small-desc {
+  position: relative;
+  font-size: 15px;
   line-height: 1.6;
+  color: #334155;
+  z-index: 1;
+  transition: color 0.35s ease;
+}
+
+/* CORNER ARROW */
+.go-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--primary-teal), var(--navy-core));
+  border-radius: 0 14px 0 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.go-arrow {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* HOVER TEXT COLOR */
+.feature-card:hover .card-title,
+.feature-card:hover .small-desc {
+  color: #ffffff;
 }
 
 /* =========================
-   LIVESTOCK SECTION
+   LIVESTOCK
    ========================= */
 .livestock {
   background-color: #f8fafc;
   padding: 70px 20px;
   margin-top: 70px;
+  text-align: center;
 }
 
-.livestock h2 {
-  text-align: center;
-  margin-bottom: 36px;
-  color: var(--navy-core);
-}
 
 .livestock-grid {
   max-width: 1100px;
-  margin: 0 auto;
+  margin: auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 26px;
@@ -152,12 +167,6 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease;
-  background: #fff;
-}
-
-.livestock-card:hover {
-  transform: scale(1.03);
 }
 
 .livestock-card img {
@@ -170,5 +179,24 @@
   padding: 14px;
   text-align: center;
   font-weight: 600;
-  color: var(--text-dark);
 }
+.livestock h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+
+  /* GRADIENT TEXT EFFECT */
+  background: linear-gradient(
+    135deg,
+    var(--primary-teal),
+    var(--navy-core)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  position: relative;
+  display: inline-block;
+}
+

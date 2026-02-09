@@ -35,17 +35,20 @@ const Home = () => {
 
         <div className="feature-grid">
           {[
-            { title: "Verified Sellers", desc: "All sellers are authenticated.", icon: "✅" },
-            { title: "Real-time Bidding", desc: "Transparent bidding system.", icon: "💰" },
-            { title: "Direct Chat", desc: "Instant buyer–seller chat.", icon: "💬" },
-            { title: "Secure Payments", desc: "Safe transactions.", icon: "🔐" },
-            { title: "Admin Monitoring", desc: "Fraud prevention.", icon: "🛡️" },
-            { title: "Digital Records", desc: "All data stored securely.", icon: "📊" },
+            { title: "Verified Sellers 👤✅", desc: "All sellers are authenticated." },
+            { title: "Real-time Bidding 💰", desc: "Transparent bidding system." },
+            { title: "Direct Chat 💬", desc: "Instant buyer–seller chat." },
+            { title: "Secure Payments 🔒", desc: "Safe transactions." },
+            { title: "Admin Monitoring 👨‍💻", desc: "Fraud prevention." },
+            { title: "Digital Records 📝", desc: "All data stored securely." },
           ].map((f, i) => (
             <div key={i} className="feature-card">
-              <div className="icon">{f.icon}</div>
-              <p className="heading">{f.title}</p>
-              <p>{f.desc}</p>
+              <p className="card-title">{f.title}</p>
+              <p className="small-desc">{f.desc}</p>
+
+              <div className="go-corner">
+                <div className="go-arrow">→</div>
+              </div>
             </div>
           ))}
         </div>
@@ -56,16 +59,14 @@ const Home = () => {
         <h2>Trade All Kinds of Livestock</h2>
 
         <div className="livestock-grid">
-          {[
-            { img: cow, name: "Cattle" },
-            { img: goat, name: "Goats" },
-            { img: sheep, name: "Sheep" },
-          ].map((item, i) => (
-            <div key={i} className="livestock-card">
-              <img src={item.img} alt={item.name} />
-              <div>{item.name}</div>
-            </div>
-          ))}
+          {[{ img: cow, name: "Cattle" }, { img: goat, name: "Goats" }, { img: sheep, name: "Sheep" }].map(
+            (item, i) => (
+              <div key={i} className="livestock-card">
+                <img src={item.img} alt={item.name} />
+                <div>{item.name}</div>
+              </div>
+            )
+          )}
         </div>
       </section>
 
