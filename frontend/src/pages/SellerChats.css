@@ -1,0 +1,112 @@
+/* =========================
+   PAGE CONTAINER
+   ========================= */
+.seller-chats-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* =========================
+   HEADINGS
+   ========================= */
+.page-title {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  background: linear-gradient(
+    135deg,
+    var(--teal),
+    var(--navy)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-subtitle {
+  color: #475569;
+  margin-bottom: 28px;
+}
+
+/* =========================
+   EMPTY TEXT
+   ========================= */
+.empty-text {
+  color: #64748b;
+  font-size: 15px;
+}
+
+.empty-text.small {
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* =========================
+   LISTING CARD
+   ========================= */
+.listing-chat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.listing-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 26px;
+  box-shadow: 0 16px 36px rgba(2, 57, 74, 0.14);
+  transition: all 0.3s ease;
+}
+
+.listing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 55px rgba(2, 57, 74, 0.25);
+}
+
+/* =========================
+   LISTING TEXT
+   ========================= */
+.listing-title {
+  color: var(--navy);
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.listing-subtitle {
+  color: #475569;
+  font-size: 14.5px;
+  margin-bottom: 12px;
+}
+
+/* =========================
+   BUYER LIST
+   ========================= */
+.buyer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.buyer-item {
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--teal);
+  background: linear-gradient(
+    135deg,
+    #e0f7fa,
+    #cce7ec
+  );
+  transition: all 0.25s ease;
+}
+
+.buyer-item:hover {
+  background: linear-gradient(
+    135deg,
+    var(--teal),
+    var(--navy)
+  );
+  color: #ffffff;
+  transform: translateX(4px);
+  box-shadow: 0 6px 18px rgba(2, 57, 74, 0.35);
+}

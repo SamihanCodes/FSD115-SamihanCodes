@@ -1,0 +1,146 @@
+/* =========================
+   BRAND VARIABLES
+   ========================= */
+:root {
+  --light: #CCE7EC;
+  --teal: #4C97A8;
+  --navy: #02394A;
+  --dark: #012136;
+  --success: #16a34a;
+  --warning: #f59e0b;
+}
+
+/* =========================
+   PAGE WRAPPER
+   ========================= */
+.invoice-page {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 110px;   /* navbar space */
+  padding-bottom: 120px; /* footer space */
+}
+
+/* =========================
+   BACKGROUND PATTERN
+   ========================= */
+.pattern-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    135deg,
+    #e6f3f6,
+    #cce7ec
+  );
+}
+
+.pattern-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(76, 151, 168, 0.14) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      rgba(76, 151, 168, 0.14) 1px,
+      transparent 1px
+    );
+  background-size: 28px 28px;
+  mask: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.25)
+  );
+}
+
+/* =========================
+   GLASS CONTAINER
+   ========================= */
+.invoice-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.glass-box {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 22px;
+  padding: 40px;
+  box-shadow: 0 30px 60px rgba(2, 57, 74, 0.25);
+}
+
+/* =========================
+   HEADING (WELCOME STYLE)
+   ========================= */
+.page-title {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  background: linear-gradient(
+    135deg,
+    var(--teal),
+    var(--navy)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-subtitle {
+  color: #475569;
+  margin-bottom: 28px;
+}
+
+/* =========================
+   INVOICE CARD
+   ========================= */
+.invoice-card {
+  background: white;
+  border-radius: 18px;
+  padding: 26px;
+  box-shadow: 0 16px 36px rgba(2, 57, 74, 0.15);
+}
+
+/* =========================
+   ROWS
+   ========================= */
+.invoice-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 15px;
+}
+
+.invoice-row:last-child {
+  border-bottom: none;
+}
+
+.invoice-row span {
+  color: #475569;
+}
+
+/* =========================
+   STATUS + AMOUNT
+   ========================= */
+.amount {
+  color: var(--navy);
+  font-size: 18px;
+}
+
+.status {
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.status.paid {
+  color: var(--success);
+}
+
+.status.pending {
+  color: var(--warning);
+}

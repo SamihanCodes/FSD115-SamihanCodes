@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { createListing } from "../api/listings";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
+import "./CreateListing.css";
 
 const CreateListing = () => {
   const navigate = useNavigate();
@@ -17,23 +19,16 @@ const CreateListing = () => {
   const [preview, setPreview] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Handle text inputs
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Handle image selection + preview
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files).slice(0, 5); // max 5
+    const files = Array.from(e.target.files).slice(0, 5);
     setImages(files);
-
-    const previews = files.map((file) =>
-      URL.createObjectURL(file)
-    );
-    setPreview(previews);
+    setPreview(files.map((file) => URL.createObjectURL(file)));
   };
 
-  // Submit listing
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,31 +41,17 @@ const CreateListing = () => {
       setLoading(true);
 
       const formData = new FormData();
-
-      // Append text fields
-      Object.entries(form).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
-
-      // Append images
-      images.forEach((img) => {
-        formData.append("images", img);
-      });
-
-      // DEBUG (you can remove later)
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-      }
+      Object.entries(form).forEach(([k, v]) =>
+        formData.append(k, v)
+      );
+      images.forEach((img) => formData.append("images", img));
 
       await createListing(formData);
-
       alert("Listing created successfully");
       navigate("/dashboard");
     } catch (err) {
-      console.error("Create listing error:", err);
       alert(
-        err.response?.data?.error ||
-          err.response?.data?.message ||
+        err.response?.data?.message ||
           "Failed to create listing"
       );
     } finally {
@@ -79,105 +60,86 @@ const CreateListing = () => {
   };
 
   return (
-    <div className="container">
-      <div className="card">
-        <h2 style={{ color: "#142C52", marginBottom: "16px" }}>
-          Create Listing
-        </h2>
+    <>
+      <div className="create-page">
+        {/* BACKGROUND PATTERN */}
+        <div className="page-pattern" />
 
-        <form onSubmit={handleSubmit}>
-          <label><strong>Animal Type</strong></label>
-          <input
-            name="animal_type"
-            value={form.animal_type}
-            onChange={handleChange}
-            required
-          />
+        <div className="create-container glass-box">
+          <h1 className="page-title">Create Listing</h1>
 
-          <label><strong>Breed</strong></label>
-          <input
-            name="breed"
-            value={form.breed}
-            onChange={handleChange}
-          />
+          <form className="listing-form" onSubmit={handleSubmit}>
+            <label>Animal Type</label>
+            <input
+              name="animal_type"
+              value={form.animal_type}
+              onChange={handleChange}
+              required
+            />
 
-          <label><strong>Age</strong></label>
-          <input
-            name="age"
-            type="number"
-            min="0"
-            value={form.age}
-            onChange={handleChange}
-          />
+            <label>Breed</label>
+            <input
+              name="breed"
+              value={form.breed}
+              onChange={handleChange}
+            />
 
-          <label><strong>Price (₹)</strong></label>
-          <input
-            name="price"
-            type="number"
-            min="1"
-            value={form.price}
-            onChange={handleChange}
-            required
-          />
+            <label>Age</label>
+            <input
+              type="number"
+              name="age"
+              min="0"
+              value={form.age}
+              onChange={handleChange}
+            />
 
-          <label><strong>Description</strong></label>
-          <textarea
-            name="description"
-            rows="4"
-            value={form.description}
-            onChange={handleChange}
-          />
+            <label>Price (₹)</label>
+            <input
+              type="number"
+              name="price"
+              min="1"
+              value={form.price}
+              onChange={handleChange}
+              required
+            />
 
-          {/* Image Upload */}
-          <label><strong>Upload Images</strong></label>
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleImageChange}
-          />
+            <label>Description</label>
+            <textarea
+              rows="4"
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+            />
 
-          {/* Preview */}
-          {preview.length > 0 && (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, 100px)",
-                gap: "10px",
-                marginTop: "10px",
-              }}
+            <label>Upload Images</label>
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageChange}
+            />
+
+            {preview.length > 0 && (
+              <div className="image-preview">
+                {preview.map((src, i) => (
+                  <img key={i} src={src} alt="preview" />
+                ))}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="submit-btn"
             >
-              {preview.map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt="preview"
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    objectFit: "cover",
-                    borderRadius: "8px",
-                    border: "1px solid #e5e7eb",
-                  }}
-                />
-              ))}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              marginTop: "16px",
-              backgroundColor: "#16808D",
-              opacity: loading ? 0.6 : 1,
-            }}
-          >
-            {loading ? "Creating..." : "Create Listing"}
-          </button>
-        </form>
+              {loading ? "Creating..." : "Create Listing"}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+
+      <Footer />
+    </>
   );
 };
 

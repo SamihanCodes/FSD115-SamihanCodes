@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getMyListings } from "../api/listings";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
+import "./MyListings.css";
 
 const MyListings = () => {
   const [listings, setListings] = useState([]);
@@ -11,101 +13,89 @@ const MyListings = () => {
   }, []);
 
   return (
-    <div className="container">
-      <h2 style={{ marginBottom: "20px", color: "#142C52" }}>
-        My Listings
-      </h2>
+    <>
+      <div className="page-wrapper">
+        {/* GLOBAL BACKGROUND */}
+        <div className="page-pattern" />
 
-      {listings.length === 0 && (
-        <p style={{ color: "#475569" }}>
-          You have not created any listings yet.
-        </p>
-      )}
+        <div className="glass-box my-listings-page">
+          <h1 className="page-title">My Listings</h1>
+          <p className="page-subtitle">
+            Manage and track your livestock listings
+          </p>
 
-      {listings.map((l) => {
-        const coverImage =
-          Array.isArray(l.images) && l.images.length > 0
-            ? l.images[0]
-            : null;
-
-        return (
-          <div className="card" key={l.id}>
-            {/* COVER IMAGE */}
-            {coverImage ? (
-              <img
-                src={coverImage}
-                alt="livestock"
-                style={{
-                  width: "100%",
-                  maxHeight: "300px",
-                  objectFit: "contain",  
-                  borderRadius: "10px",
-                  marginBottom: "12px",
-                  backgroundColor: "#f1f5f9"
-                }}
-              />
-
-            ) : (
-              <div
-                style={{
-                  height: "180px",
-                  backgroundColor: "#f1f5f9",
-                  borderRadius: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: "12px",
-                  color: "#64748b",
-                }}
-              >
-                No image uploaded
-              </div>
-            )}
-
-            {/* DETAILS */}
-            <h3 style={{ color: "#142C52", marginBottom: "6px" }}>
-              {l.animal_type}
-            </h3>
-
-            <p style={{ marginBottom: "6px" }}>
-              <strong>Price:</strong> ₹{l.price}
+          {listings.length === 0 && (
+            <p className="empty-text">
+              You have not created any listings yet.
             </p>
+          )}
 
-            {/* STATUS BADGE */}
-            <span
-              style={{
-                display: "inline-block",
-                padding: "4px 10px",
-                borderRadius: "999px",
-                fontSize: "13px",
-                marginBottom: "12px",
-                backgroundColor:
-                  l.status === "active" ? "#DCFCE7" : "#FEE2E2",
-                color:
-                  l.status === "active" ? "#166534" : "#991B1B",
-              }}
-            >
-              {l.status === "active" ? "Active" : "Sold"}
-            </span>
+          <div className="listings-grid">
+            {listings.map((l) => {
+              const coverImage =
+                Array.isArray(l.images) && l.images.length > 0
+                  ? l.images[0]
+                  : null;
 
-            {/* ACTION BUTTONS */}
-            <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
-              {l.status === "active" && (
-                <button
-                  onClick={() => navigate(`/listings/edit/${l.id}`)}
-                  style={{
-                    backgroundColor: "#16808D",
-                    padding: "6px 14px",
-                  }}
-                >
-                  Edit Listing
-                </button>
-              )}
-            </div>
+              return (
+                <div className="listing-card" key={l.id}>
+                  {/* IMAGE */}
+                  {coverImage ? (
+                    <img
+                      src={coverImage}
+                      alt="livestock"
+                      className="listing-image"
+                    />
+                  ) : (
+                    <div className="listing-image placeholder">
+                      No image uploaded
+                    </div>
+                  )}
+
+                  {/* DETAILS */}
+                  <h3 className="listing-title">
+                    {l.animal_type}
+                  </h3>
+
+                  <p className="listing-price">
+                    <strong>Price:</strong> ₹{l.price}
+                  </p>
+
+                  <span
+                    className={`status-badge ${
+                      l.status === "active"
+                        ? "active"
+                        : "sold"
+                    }`}
+                  >
+                    {l.status === "active"
+                      ? "Active"
+                      : "Sold"}
+                  </span>
+
+                  {/* ACTIONS */}
+                  {l.status === "active" && (
+                    <div className="listing-actions">
+                      <button
+                        onClick={() =>
+                          navigate(
+                            `/listings/edit/${l.id}`
+                          )
+                        }
+                      >
+                        Edit Listing
+                      </button>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
-        );
-      })}
-    </div>
+        </div>
+      </div>
+
+      <Footer />
+    </>
   );
 };
 

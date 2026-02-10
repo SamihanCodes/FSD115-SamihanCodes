@@ -5,6 +5,8 @@ import {
   updateListing,
   deleteListing,
 } from "../api/listings";
+import Footer from "../components/Footer";
+import "./EditListing.css";
 
 const EditListing = () => {
   const { id } = useParams();
@@ -85,86 +87,86 @@ const EditListing = () => {
 
   if (loading) {
     return (
-      <div className="container">
-        <div className="card">Loading listing…</div>
+      <div className="page-wrapper">
+        <div className="glass-box">Loading listing…</div>
       </div>
     );
   }
 
   return (
-    <div className="container">
-      <div className="card">
-        <h2 style={{ color: "#142C52", marginBottom: "16px" }}>
-          Edit Listing
-        </h2>
+    <>
+      <div className="page-wrapper edit-listing-page">
+        {/* BACKGROUND PATTERN */}
+        <div className="pattern-bg" />
 
-        <form onSubmit={handleSubmit}>
-          <label>Animal Type</label>
-          <input
-            name="animal_type"
-            value={form.animal_type}
-            onChange={handleChange}
-            required
-          />
+        <div className="glass-box edit-listing-container">
+          {/* HEADING */}
+          <h1 className="page-title">Edit Listing</h1>
+          <p className="page-subtitle">
+            Update details of your livestock listing
+          </p>
 
-          <label>Breed</label>
-          <input
-            name="breed"
-            value={form.breed}
-            onChange={handleChange}
-          />
+          <form onSubmit={handleSubmit} className="edit-form">
+            <label>Animal Type</label>
+            <input
+              name="animal_type"
+              value={form.animal_type}
+              onChange={handleChange}
+              required
+            />
 
-          <label>Age</label>
-          <input
-            name="age"
-            type="number"
-            min="0"
-            value={form.age}
-            onChange={handleChange}
-          />
+            <label>Breed</label>
+            <input
+              name="breed"
+              value={form.breed}
+              onChange={handleChange}
+            />
 
-          <label>Price (₹)</label>
-          <input
-            name="price"
-            type="number"
-            min="1"
-            value={form.price}
-            onChange={handleChange}
-            required
-          />
+            <label>Age</label>
+            <input
+              name="age"
+              type="number"
+              min="0"
+              value={form.age}
+              onChange={handleChange}
+            />
 
-          <label>Description</label>
-          <textarea
-            name="description"
-            rows="4"
-            value={form.description}
-            onChange={handleChange}
-          />
+            <label>Price (₹)</label>
+            <input
+              name="price"
+              type="number"
+              min="1"
+              value={form.price}
+              onChange={handleChange}
+              required
+            />
 
+            <label>Description</label>
+            <textarea
+              name="description"
+              rows="4"
+              value={form.description}
+              onChange={handleChange}
+            />
+
+            <button type="submit" className="btn-primary">
+              Update Listing
+            </button>
+          </form>
+
+          {/* DELETE */}
           <button
-            type="submit"
-            style={{
-              marginTop: "12px",
-              backgroundColor: "#16808D",
-            }}
+            onClick={handleDelete}
+            className="btn-danger"
+            disabled={loading}
           >
-            Update Listing
+            Delete Listing
           </button>
-        </form>
-
-        {/*  PERMANENT DELETE */}
-        <button
-          onClick={handleDelete}
-          disabled={loading}
-          style={{
-            marginTop: "16px",
-            backgroundColor: "#EF4444",
-          }}
-        >
-          Delete Listing
-        </button>
+        </div>
       </div>
-    </div>
+
+      <Footer />
+    </>
   );
 };
 

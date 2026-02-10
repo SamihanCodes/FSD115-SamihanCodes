@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getMyListings } from "../api/listings";
 import { getBuyersForListing } from "../api/messages";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
+import "./SellerChats.css";
 
 const SellerChats = () => {
   const [listings, setListings] = useState([]);
@@ -12,7 +14,6 @@ const SellerChats = () => {
     getMyListings().then((res) => {
       setListings(res.data);
 
-      // For each listing, load buyers
       res.data.forEach((listing) => {
         getBuyersForListing(listing.id).then((r) => {
           setBuyersMap((prev) => ({
@@ -25,41 +26,63 @@ const SellerChats = () => {
   }, []);
 
   return (
-    <div className="container">
-      <h2>Seller Chats</h2>
+    <>
+      <div className="page-wrapper">
+        {/* GLOBAL BACKGROUND */}
+        <div className="page-pattern" />
 
-      {listings.length === 0 && <p>No listings found</p>}
+        <div className="glass-box seller-chats-page">
+          <h1 className="page-title">Seller Chats</h1>
+          <p className="page-subtitle">
+            Buyers who have contacted you for your listings
+          </p>
 
-      {listings.map((l) => (
-        <div key={l.id} className="card">
-          <h3>{l.animal_type}</h3>
-          <p>Buyers who contacted you:</p>
-
-          {buyersMap[l.id]?.length > 0 ? (
-            buyersMap[l.id].map((buyer) => (
-              <div
-                key={buyer.id}
-                style={{
-                  cursor: "pointer",
-                  padding: "6px",
-                  borderBottom: "1px solid #e5e7eb",
-                  color: "#16808D",
-                }}
-                onClick={() =>
-                  navigate(`/chat/${l.id}?buyer=${buyer.id}`)
-                }
-              >
-                {buyer.email}
-              </div>
-            ))
-          ) : (
-            <p style={{ color: "#94a3b8" }}>
-              No chats yet for this listing
+          {listings.length === 0 && (
+            <p className="empty-text">
+              No listings found
             </p>
           )}
+
+          <div className="listing-chat-list">
+            {listings.map((l) => (
+              <div key={l.id} className="listing-card">
+                <h3 className="listing-title">
+                  {l.animal_type}
+                </h3>
+
+                <p className="listing-subtitle">
+                  Interested buyers:
+                </p>
+
+                {buyersMap[l.id]?.length > 0 ? (
+                  <div className="buyer-list">
+                    {buyersMap[l.id].map((buyer) => (
+                      <div
+                        key={buyer.id}
+                        className="buyer-item"
+                        onClick={() =>
+                          navigate(
+                            `/chat/${l.id}?buyer=${buyer.id}`
+                          )
+                        }
+                      >
+                        {buyer.email}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="empty-text small">
+                    No chats yet for this listing
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-    </div>
+      </div>
+
+      <Footer />
+    </>
   );
 };
 

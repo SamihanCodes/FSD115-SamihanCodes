@@ -24,7 +24,7 @@ const createListing = async (
       age,
       price,
       description,
-      JSON.stringify(images || []), // ✅ critical fix
+      JSON.stringify(images || []), 
     ]
   );
 

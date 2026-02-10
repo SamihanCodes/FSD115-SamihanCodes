@@ -1,0 +1,104 @@
+/* =========================
+   BRAND VARIABLES
+   ========================= */
+:root {
+  --light: #CCE7EC;
+  --teal: #4C97A8;
+  --navy: #02394A;
+  --dark: #012136;
+  --deep: #01181F;
+}
+
+/* =========================
+   PAGE BACKGROUND
+   ========================= */
+.interests-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #e6f3f6, #cce7ec);
+  overflow: hidden;
+}
+
+/* =========================
+   GLASS CONTAINER
+   ========================= */
+.interests-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* REUSED GLASS STYLE */
+.glass-box {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 22px;
+  padding: 36px;
+  box-shadow: 0 30px 60px rgba(2, 57, 74, 0.25);
+}
+
+/* =========================
+   HEADING
+   ========================= */
+.page-heading {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--teal), var(--navy));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-subtext {
+  color: #475569;
+  margin-bottom: 28px;
+}
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+.empty-text {
+  color: #64748b;
+  font-size: 15px;
+}
+
+/* =========================
+   INTERESTS GRID
+   ========================= */
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+/* =========================
+   CARD
+   ========================= */
+.interest-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 14px 30px rgba(2, 57, 74, 0.15);
+  transition: all 0.3s ease;
+}
+
+.interest-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 50px rgba(2, 57, 74, 0.25);
+}
+
+.interest-card p {
+  margin-bottom: 8px;
+  color: #1f2937;
+}
+
+/* HIGHLIGHT EMAIL */
+.buyer-email {
+  font-weight: 600;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

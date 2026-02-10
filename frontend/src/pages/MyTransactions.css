@@ -1,0 +1,115 @@
+/* =========================
+   CONTAINER
+   ========================= */
+.transactions-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 36px;
+}
+
+/* =========================
+   PAGE HEADING (WELCOME STYLE)
+   ========================= */
+.page-title {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  background: linear-gradient(
+    135deg,
+    var(--teal),
+    var(--navy)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-subtitle {
+  color: #475569;
+  margin-bottom: 30px;
+}
+
+.empty-text {
+  color: #64748b;
+  font-style: italic;
+}
+
+/* =========================
+   GRID
+   ========================= */
+.transactions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+/* =========================
+   TRANSACTION CARD
+   ========================= */
+.transaction-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 14px 32px rgba(2, 57, 74, 0.14);
+  transition: all 0.3s ease;
+}
+
+.transaction-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 50px rgba(2, 57, 74, 0.25);
+}
+
+/* =========================
+   TEXT STYLES
+   ========================= */
+.amount {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.status {
+  font-weight: 700;
+}
+
+.status.paid {
+  color: #22c55e;
+}
+
+.status.pending {
+  color: #ef4444;
+}
+
+/* =========================
+   BUTTON & LINK
+   ========================= */
+.pay-btn {
+  margin-top: 14px;
+  padding: 10px 22px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--teal),
+    var(--navy)
+  );
+  transition: all 0.3s ease;
+}
+
+.pay-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(2, 57, 74, 0.35);
+}
+
+.invoice-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-weight: 600;
+  color: var(--teal);
+  text-decoration: none;
+}
+
+.invoice-link:hover {
+  text-decoration: underline;
+}

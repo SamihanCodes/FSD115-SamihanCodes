@@ -8,7 +8,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   if (!user) {
-    return <div className="dashboard-container">No user data available</div>;
+    return <div className="dashboard-page">No user data available</div>;
   }
 
   const handleLogout = () => {
@@ -19,17 +19,16 @@ const Dashboard = () => {
   return (
     <>
       <div className="dashboard-page">
+        {/* FULL PAGE BACKGROUND PATTERN */}
+        <div className="page-pattern" />
+
+        {/* CONTENT */}
         <div className="dashboard-container glass-box">
-          
           {/* HEADER */}
           <div className="dashboard-header">
             <div>
               <h1 className="welcome-text">Welcome Back</h1>
-
-              {/* 👇 UPDATED EMAIL STYLING */}
-              <p className="welcome-email">
-                {user.email}
-              </p>
+              <p className="welcome-email">{user.email}</p>
             </div>
 
             <span className={`role-badge ${user.role}`}>
@@ -65,7 +64,7 @@ const Dashboard = () => {
                 </ul>
 
                 <div className="action-row">
-                  <button onClick={() => navigate("/listings/create")}>
+                  <button className="action-row-one" onClick={() => navigate("/listings/create")}>
                     Create Listing
                   </button>
                   <button onClick={() => navigate("/listings/my")}>
@@ -87,7 +86,6 @@ const Dashboard = () => {
                   <li>💬 Chat with sellers</li>
                 </ul>
 
-                {/* ❌ REMOVED “My Bids” BUTTON */}
                 <div className="action-row">
                   <button onClick={() => navigate("/listings")}>
                     Browse Listings

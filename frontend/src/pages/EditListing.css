@@ -1,0 +1,80 @@
+/* =========================
+   PAGE
+   ========================= */
+.edit-listing-page {
+  position: relative;
+}
+
+.edit-listing-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* =========================
+   FORM
+   ========================= */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.edit-form label {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.edit-form input,
+.edit-form textarea {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #cce7ec;
+  font-size: 14px;
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus {
+  outline: none;
+  border-color: var(--teal);
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+.btn-primary {
+  margin-top: 16px;
+  width: fit-content;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--teal),
+    var(--navy)
+  );
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(2, 57, 74, 0.35);
+}
+
+.btn-danger {
+  margin-top: 18px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  background: #ef4444;
+  width: fit-content;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}

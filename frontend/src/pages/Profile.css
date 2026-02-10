@@ -26,28 +26,6 @@
 }
 
 /* =========================
-   PATTERN BACKGROUND (SVG)
-   ========================= */
-.pattern-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: var(#cce7ec);
-}
-
-.pattern-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMTkuNSIgbnVtT2N0YXZlcz0iMTAiIHJlc3VsdD0idHVyYnVsZW5jZSIvPjxmZUNvbXBvc2l0ZSBvcGVyYXRvcj0iaW4iIGluPSJ0dXJidWxlbmNlIiBpbjI9IlNvdXJjZUFscGhhIiByZXN1bHQ9ImNvbXBvc2l0ZSIvPjxmZUNvbG9yTWF0cml4IGluPSJjb21wb3NpdGUiIHR5cGU9Imx1bWluYW5jZVRvQWxwaGEiLz48ZmVCbGVuZCBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJjb21wb3NpdGUiIG1vZGU9ImNvbG9yLWJ1cm4iLz48L2ZpbHRlcj48L2RlZnM+PGcgZmlsdGVyPSJ1cmwoJyNhJykiPjxwYXRoIGZpbGw9IiM0Qzk3QTgiIGQ9Ik0wIDBoMTAwdjEwMEgweiIvPjxwYXRoIGQ9Ik0wIDB2MTAwaDEwMFYwWiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9IiMwMTIxMzYiIGZpbGw9IiMwMDAwIi8+PHBhdGggZmlsbD0iIzAxMjEzNiIgZD0iTTUwIDBoMXYxMDBoLTF6Ii8+PHBhdGggZmlsbD0iIzAxMjEzNiIgZD0iTTAgNTBoMTAwdjFIMHoiLz48L2c+PC9zdmc+");
-
-  mask: linear-gradient(#0005, #000);
-  opacity: 0.35;
-}
-
-
-/* =========================
    GLASS CONTAINER
    ========================= */
 .glass-container {

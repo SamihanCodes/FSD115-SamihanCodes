@@ -54,7 +54,7 @@ const Profile = () => {
     <>
       <div className="profile-page">
         {/* NEW PATTERN BACKGROUND */}
-        <div className="pattern-bg" />
+        <div className="page-pattern" />
 
         <div className="glass-container">
           <h1 className="page-heading">
