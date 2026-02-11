@@ -16,7 +16,7 @@ const Messages = ({ listingId, sellerId, listingStatus }) => {
 
   const chatLocked = listingStatus === "sold";
 
-  // 🔹 Seller: load buyers list
+  //  Seller: load buyers list
   useEffect(() => {
     if (user?.role === "seller") {
       getBuyersForListing(listingId).then((res) =>
@@ -25,7 +25,7 @@ const Messages = ({ listingId, sellerId, listingStatus }) => {
     }
   }, [listingId, user]);
 
-  // 🔹 Load messages
+  //  Load messages
   const loadMessages = () => {
     let buyerId = null;
 
@@ -88,7 +88,7 @@ const Messages = ({ listingId, sellerId, listingStatus }) => {
         minHeight: "300px",
       }}
     >
-      {/* 🟦 SELLER SIDEBAR */}
+      {/*  SELLER SIDEBAR */}
       {user.role === "seller" && (
         <div
           style={{
@@ -126,7 +126,7 @@ const Messages = ({ listingId, sellerId, listingStatus }) => {
         </div>
       )}
 
-      {/* 💬 CHAT WINDOW */}
+      {/*  CHAT WINDOW */}
       <div style={{ flex: 1 }}>
         <h4 style={{ marginBottom: "10px" }}>
           {user.role === "buyer"

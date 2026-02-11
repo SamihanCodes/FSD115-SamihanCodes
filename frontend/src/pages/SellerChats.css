@@ -1,14 +1,10 @@
-/* =========================
-   PAGE CONTAINER
-   ========================= */
+
 .seller-chats-page {
   max-width: 900px;
   margin: 0 auto;
 }
 
-/* =========================
-   HEADINGS
-   ========================= */
+
 .page-title {
   font-size: 42px;
   font-weight: 800;
@@ -27,9 +23,7 @@
   margin-bottom: 28px;
 }
 
-/* =========================
-   EMPTY TEXT
-   ========================= */
+
 .empty-text {
   color: #64748b;
   font-size: 15px;
@@ -40,9 +34,7 @@
   margin-top: 8px;
 }
 
-/* =========================
-   LISTING CARD
-   ========================= */
+
 .listing-chat-list {
   display: flex;
   flex-direction: column;
@@ -62,9 +54,7 @@
   box-shadow: 0 26px 55px rgba(2, 57, 74, 0.25);
 }
 
-/* =========================
-   LISTING TEXT
-   ========================= */
+
 .listing-title {
   color: var(--navy);
   font-size: 20px;
@@ -77,9 +67,7 @@
   margin-bottom: 12px;
 }
 
-/* =========================
-   BUYER LIST
-   ========================= */
+
 .buyer-list {
   display: flex;
   flex-direction: column;

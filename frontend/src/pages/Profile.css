@@ -1,6 +1,4 @@
-/* =========================
-   ROOT COLOR VARIABLES
-   ========================= */
+
 :root {
   --bg-light: #cce7ec;
   --primary-teal: #4c97a8;
@@ -10,9 +8,7 @@
   --surface: #ffffff;
 }
 
-/* =========================
-   PAGE BACKGROUND
-   ========================= */
+
 .profile-page {
   position: relative;
   min-height: 100vh;
@@ -25,9 +21,7 @@
   overflow: hidden;
 }
 
-/* =========================
-   GLASS CONTAINER
-   ========================= */
+
 .glass-container {
   position: relative;
   z-index: 1;
@@ -40,9 +34,6 @@
   box-shadow: 0 30px 70px rgba(2, 57, 74, 0.18);
 }
 
-/* =========================
-   PAGE HEADING
-   ========================= */
 .page-heading {
   font-size: 42px;
   font-weight: 800;
@@ -54,9 +45,7 @@
   font-size: 34px;
 }
 
-/* =========================
-   PROFILE CARDS
-   ========================= */
+
 .profile-card {
   background: var(--surface);
   border-radius: 18px;
@@ -76,9 +65,7 @@
   margin-bottom: 14px;
 }
 
-/* =========================
-   ROLE BADGE
-   ========================= */
+
 .role-badge {
   display: inline-block;
   background: linear-gradient(
@@ -94,9 +81,6 @@
   text-transform: capitalize;
 }
 
-/* =========================
-   FORMS
-   ========================= */
 .profile-card form {
   display: flex;
   flex-direction: column;
@@ -120,9 +104,7 @@
   border-color: var(--primary-teal);
 }
 
-/* =========================
-   BUTTONS
-   ========================= */
+
 .primary-btn,
 .secondary-btn {
   width: fit-content;
@@ -159,9 +141,8 @@
   box-shadow: 0 10px 22px rgba(2, 57, 74, 0.35);
 }
 
-/* =========================
-   FEEDBACK
-   ========================= */
+
+
 .success-msg {
   color: #178740;
   font-weight: 600;

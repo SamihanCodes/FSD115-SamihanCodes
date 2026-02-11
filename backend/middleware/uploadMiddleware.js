@@ -2,17 +2,15 @@ const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("cloudinary").v2;
 
-// ================= CLOUDINARY CONFIG =================
+//  CLOUDINARY CONFIG 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Debug once on server start
-console.log("✅ Cloudinary upload middleware loaded");
 
-// ================= STORAGE =================
+//  STORAGE
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
@@ -22,7 +20,7 @@ const storage = new CloudinaryStorage({
   },
 });
 
-// ================= MULTER =================
+// MULTER 
 const upload = multer({
   storage,
   limits: {

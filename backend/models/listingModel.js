@@ -1,6 +1,6 @@
 const pool = require("../config/db");
 
-// CREATE LISTING (JSONB FIXED)
+// CREATE LISTING 
 const createListing = async (
   seller_id,
   animal_type,

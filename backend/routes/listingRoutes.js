@@ -15,13 +15,13 @@ const authenticate = require("../middleware/authMiddleware");
 const authorizeRole = require("../middleware/roleMiddleware");
 const upload = require("../middleware/uploadMiddleware");
 
-// ================= SEARCH (MUST BE FIRST) =================
+//SEARCH 
 router.get("/search", searchListings);
 
-// ================= PUBLIC (BUYERS) =================
+//  PUBLIC (BUYERS) 
 router.get("/", getAllListings);
 
-// ================= CREATE LISTING =================
+//  CREATE LISTING 
 router.post(
   "/",
   authenticate,
@@ -30,7 +30,7 @@ router.post(
   createListing
 );
 
-// ================= SELLER LISTINGS =================
+// SELLER LISTINGS 
 router.get(
   "/my",
   authenticate,
@@ -38,7 +38,7 @@ router.get(
   getMyListings
 );
 
-// ================= EDIT LISTING =================
+//  EDIT LISTING 
 router.put(
   "/:id",
   authenticate,
@@ -46,7 +46,7 @@ router.put(
   updateListing
 );
 
-// ================= UPDATE STATUS =================
+// UPDATE STATUS 
 router.patch(
   "/:id/status",
   authenticate,
@@ -54,7 +54,7 @@ router.patch(
   updateListingStatus
 );
 
-// ================= DELETE LISTING =================
+// DELETE LISTING 
 router.delete(
   "/:id",
   authenticate,

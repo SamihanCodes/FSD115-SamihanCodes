@@ -1,8 +1,5 @@
 const pool = require("../config/db");
 
-/**
- * GET ALL USERS (Admin)
- */
 const getAllUsers = async (req, res) => {
   try {
     const result = await pool.query(`
@@ -35,9 +32,7 @@ const getAllListings = async (req, res) => {
   }
 };
 
-/**
- * GET ALL TRANSACTIONS (Admin)
- */
+
 const getAllTransactions = async (req, res) => {
   try {
     const result = await pool.query(`
@@ -56,9 +51,7 @@ const getAllTransactions = async (req, res) => {
   }
 };
 
-/**
- * ADMIN SUMMARY (Dashboard KPIs)
- */
+
 const getSummary = async (req, res) => {
   try {
     const users = await pool.query("SELECT COUNT(*) FROM users");
@@ -81,9 +74,7 @@ const getSummary = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-/**
- * BLOCK USER
- */
+
 const blockUser = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -100,9 +91,6 @@ const blockUser = async (req, res) => {
   }
 };
 
-/**
- * UNBLOCK USER
- */
 const unblockUser = async (req, res) => {
   try {
     const { userId } = req.params;

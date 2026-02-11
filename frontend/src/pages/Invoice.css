@@ -1,6 +1,4 @@
-/* =========================
-   BRAND VARIABLES
-   ========================= */
+
 :root {
   --light: #CCE7EC;
   --teal: #4C97A8;
@@ -10,19 +8,14 @@
   --warning: #f59e0b;
 }
 
-/* =========================
-   PAGE WRAPPER
-   ========================= */
 .invoice-page {
   position: relative;
   min-height: 100vh;
-  padding-top: 110px;   /* navbar space */
-  padding-bottom: 120px; /* footer space */
+  padding-top: 110px;   
+  padding-bottom: 120px; 
 }
 
-/* =========================
-   BACKGROUND PATTERN
-   ========================= */
+
 .pattern-bg {
   position: absolute;
   inset: 0;
@@ -56,9 +49,7 @@
   );
 }
 
-/* =========================
-   GLASS CONTAINER
-   ========================= */
+
 .invoice-container {
   max-width: 700px;
   margin: 0 auto;
@@ -74,9 +65,7 @@
   box-shadow: 0 30px 60px rgba(2, 57, 74, 0.25);
 }
 
-/* =========================
-   HEADING (WELCOME STYLE)
-   ========================= */
+
 .page-title {
   font-size: 42px;
   font-weight: 800;
@@ -95,9 +84,7 @@
   margin-bottom: 28px;
 }
 
-/* =========================
-   INVOICE CARD
-   ========================= */
+
 .invoice-card {
   background: white;
   border-radius: 18px;
@@ -105,9 +92,7 @@
   box-shadow: 0 16px 36px rgba(2, 57, 74, 0.15);
 }
 
-/* =========================
-   ROWS
-   ========================= */
+
 .invoice-row {
   display: flex;
   justify-content: space-between;
@@ -124,9 +109,7 @@
   color: #475569;
 }
 
-/* =========================
-   STATUS + AMOUNT
-   ========================= */
+
 .amount {
   color: var(--navy);
   font-size: 18px;

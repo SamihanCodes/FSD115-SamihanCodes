@@ -1,6 +1,4 @@
-/* =========================
-   BRAND VARIABLES
-   ========================= */
+
 :root {
   --light: #CCE7EC;
   --teal: #4C97A8;
@@ -8,9 +6,7 @@
   --dark: #012136;
 }
 
-/* =========================
-   PAGE WRAPPER
-   ========================= */
+
 .create-page {
   position: relative;
   min-height: 100vh;
@@ -18,9 +14,7 @@
   overflow: hidden;
 }
 
-/* =========================
-   MAIN CONTAINER
-   ========================= */
+
 .create-container {
   position: relative;
   z-index: 1;
@@ -37,9 +31,7 @@
   box-shadow: 0 30px 60px rgba(2, 57, 74, 0.25);
 }
 
-/* =========================
-   PAGE TITLE (LIKE WELCOME)
-   ========================= */
+
 .page-title {
   font-size: 42px;
   font-weight: 800;
@@ -53,9 +45,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* =========================
-   FORM
-   ========================= */
+
 .listing-form {
   display: flex;
   flex-direction: column;
@@ -81,9 +71,7 @@
   border-color: var(--teal);
 }
 
-/* =========================
-   IMAGE PREVIEW
-   ========================= */
+
 .image-preview {
   display: grid;
   grid-template-columns: repeat(auto-fit, 100px);
@@ -99,9 +87,7 @@
   border: 1px solid #e5e7eb;
 }
 
-/* =========================
-   SUBMIT BUTTON
-   ========================= */
+
 .submit-btn {
   margin-top: 20px;
   padding: 12px;

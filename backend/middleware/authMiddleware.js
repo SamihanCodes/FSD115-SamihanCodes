@@ -13,7 +13,6 @@ const authenticate = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // 🔐 Fetch user to check block status
     const result = await pool.query(
       "SELECT id, role, is_blocked FROM users WHERE id = $1",
       [decoded.id]
@@ -25,7 +24,7 @@ const authenticate = async (req, res, next) => {
 
     const user = result.rows[0];
 
-    // 🚫 Blocked user check (admins are never blocked)
+    //  Blocked user check 
     if (user.is_blocked && user.role !== "admin") {
       return res.status(403).json({
         message: "Your account has been blocked by admin",

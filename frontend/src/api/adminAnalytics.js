@@ -11,10 +11,10 @@ export const getTransactionsChart = () =>
 export const getRevenueChart = () =>
   api.get("/admin/analytics/revenue-chart");
 
-// NEW: Latest listings table
+
 export const getLatestListings = () =>
   api.get("/admin/analytics/latest-listings");
 
-// NEW: Top performing listings
+
 export const getTopListings = () =>
   api.get("/admin/analytics/top-listings");

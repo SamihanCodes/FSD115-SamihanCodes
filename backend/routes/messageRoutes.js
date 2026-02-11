@@ -14,35 +14,34 @@ const {
 // SEND MESSAGE (buyer or seller)
 router.post("/", authenticate, sendMessage);
 
-// CHAT WINDOW (buyer <-> seller for a listing)
+// CHAT WINDOW 
 router.get(
   "/chat/:listingId/:otherUserId",
   authenticate,
   getMessagesBetweenUsers
 );
 
-// BUYER DASHBOARD → all sellers buyer chatted with
+// BUYER DASHBOARD 
 router.get(
   "/buyer/sellers",
   authenticate,
   getSellersForBuyer
 );
 
-// BUYER DASHBOARD → all chats
 router.get(
   "/buyer",
   authenticate,
   getBuyerChats
 );
 
-// SELLER → buyers for a specific listing
+
 router.get(
   "/seller/listing/:listingId/buyers",
   authenticate,
   getBuyersForListing
 );
 
-// SELLER DASHBOARD → all buyer chats across all listings
+
 router.get(
   "/seller/chats",
   authenticate,

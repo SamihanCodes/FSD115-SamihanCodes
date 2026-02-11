@@ -1,6 +1,4 @@
-/* =========================
-   PAGE
-   ========================= */
+
 .edit-listing-page {
   position: relative;
 }
@@ -10,9 +8,7 @@
   margin: 0 auto;
 }
 
-/* =========================
-   FORM
-   ========================= */
+
 .edit-form {
   display: flex;
   flex-direction: column;
@@ -38,9 +34,7 @@
   border-color: var(--teal);
 }
 
-/* =========================
-   BUTTONS
-   ========================= */
+
 .btn-primary {
   margin-top: 16px;
   width: fit-content;

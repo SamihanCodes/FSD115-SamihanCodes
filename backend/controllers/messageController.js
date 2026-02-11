@@ -2,7 +2,7 @@ const notificationModel = require("../models/notificationModel");
 
 const messageModel = require("../models/messageModel");
 
-// SEND MESSAGE (buyer or seller)
+// SEND MESSAGE 
 const sendMessage = async (req, res) => {
   try {
     const sender_id = req.user.id;
@@ -19,7 +19,7 @@ const sendMessage = async (req, res) => {
       message
     );
 
-    // 🔔 Create notification (FIXED)
+    //  Create notification 
     await notificationModel.createNotification(
       receiver_id,
       "New message received"
@@ -33,7 +33,7 @@ const sendMessage = async (req, res) => {
 };
 
 
-// CHAT WINDOW: BETWEEN TWO USERS FOR A LISTING
+// CHAT WINDOW
 const getMessagesBetweenUsers = async (req, res) => {
   try {
     const { listingId, otherUserId } = req.params;
@@ -52,7 +52,7 @@ const getMessagesBetweenUsers = async (req, res) => {
   }
 };
 
-// BUYER DASHBOARD: ALL SELLER CHATS
+// BUYER DASHBOARD
 const getSellersForBuyer = async (req, res) => {
   try {
     const buyerId = req.user.id;
@@ -64,7 +64,7 @@ const getSellersForBuyer = async (req, res) => {
   }
 };
 
-// BUYER DASHBOARD: ALL CHAT THREADS
+
 const getBuyerChats = async (req, res) => {
   try {
     const buyerId = req.user.id;
@@ -76,7 +76,7 @@ const getBuyerChats = async (req, res) => {
   }
 };
 
-// SELLER DASHBOARD: BUYERS FOR ONE LISTING
+// SELLER DASHBOARD
 const getBuyersForListing = async (req, res) => {
   try {
     const { listingId } = req.params;
@@ -88,7 +88,7 @@ const getBuyersForListing = async (req, res) => {
   }
 };
 
-// SELLER DASHBOARD: ALL BUYER CHATS (ALL LISTINGS)
+
 const getSellerChats = async (req, res) => {
   try {
     const sellerId = req.user.id;
@@ -104,7 +104,7 @@ module.exports = {
   sendMessage,
   getMessagesBetweenUsers,
   getSellersForBuyer,
-  getBuyerChats,       // 👈 THIS WAS MISSING
+  getBuyerChats,      
   getBuyersForListing,
   getSellerChats,
 };

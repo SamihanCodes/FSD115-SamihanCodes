@@ -46,7 +46,7 @@ const Navbar = () => {
                 <Link className="nav-btn dark" to="/listings/my">My Listings</Link>
                 <Link className="nav-btn dark" to="/seller/chats">Chats</Link>
 
-                {/* MORE DROPDOWN */}
+                {/*  DROPDOWN */}
                 <div className="more-wrapper">
                   <button
                     className="nav-btn dark"

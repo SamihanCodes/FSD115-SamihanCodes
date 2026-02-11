@@ -2,9 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 
-/**
- * REGISTER
- */
+
 const register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -50,9 +48,6 @@ const register = async (req, res) => {
   }
 };
 
-/**
- * LOGIN
- */
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -65,14 +60,13 @@ const login = async (req, res) => {
 
     const user = await userModel.findUserByEmail(email);
 
-    // ❌ Email not found → generic message
+   
     if (!user) {
       return res.status(401).json({
         message: "Invalid email or password",
       });
     }
 
-    // 🚫 Blocked user (admin never blocked)
     if (user.is_blocked && user.role !== "admin") {
       return res.status(403).json({
         message:
@@ -82,7 +76,7 @@ const login = async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
 
-    // ❌ Wrong password → generic message
+ 
     if (!isMatch) {
       return res.status(401).json({
         message: "Invalid email or password",
@@ -95,7 +89,7 @@ const login = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    // Remove password before response
+ 
     delete user.password;
 
     res.json({

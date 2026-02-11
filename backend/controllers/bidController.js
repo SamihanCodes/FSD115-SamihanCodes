@@ -90,7 +90,6 @@ const getMyBids = async (req, res) => {
   }
 };
 
-
 // Seller accepts bid
 const acceptBid = async (req, res) => {
   try {

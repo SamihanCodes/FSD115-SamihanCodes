@@ -1,6 +1,4 @@
-/* =========================
-   BRAND VARIABLES
-   ========================= */
+
 :root {
   --light: #CCE7EC;
   --teal: #4C97A8;
@@ -9,9 +7,7 @@
   --deep: #01181F;
 }
 
-/* =========================
-   PAGE BACKGROUND
-   ========================= */
+
 .interests-page {
   position: relative;
   min-height: 100vh;
@@ -20,9 +16,6 @@
   overflow: hidden;
 }
 
-/* =========================
-   GLASS CONTAINER
-   ========================= */
 .interests-container {
   position: relative;
   z-index: 1;
@@ -30,7 +23,6 @@
   margin: auto;
 }
 
-/* REUSED GLASS STYLE */
 .glass-box {
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
@@ -39,9 +31,7 @@
   box-shadow: 0 30px 60px rgba(2, 57, 74, 0.25);
 }
 
-/* =========================
-   HEADING
-   ========================= */
+
 .page-heading {
   font-size: 44px;
   font-weight: 800;
@@ -57,26 +47,17 @@
   margin-bottom: 28px;
 }
 
-/* =========================
-   EMPTY STATE
-   ========================= */
 .empty-text {
   color: #64748b;
   font-size: 15px;
 }
 
-/* =========================
-   INTERESTS GRID
-   ========================= */
 .interests-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 22px;
 }
 
-/* =========================
-   CARD
-   ========================= */
 .interest-card {
   background: #ffffff;
   border-radius: 16px;

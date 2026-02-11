@@ -1,10 +1,10 @@
 const bcrypt = require("bcryptjs");
 const userModel = require("../models/userModel");
 
-// UPDATE PROFILE (NAME + EMAIL)
+// UPDATE PROFILE 
 const updateProfile = async (req, res) => {
   try {
-    const userId = req.user.id; // from JWT
+    const userId = req.user.id;
     const { name, email } = req.body;
 
     if (!name || !email) {

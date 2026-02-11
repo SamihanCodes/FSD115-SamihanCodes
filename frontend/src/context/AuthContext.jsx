@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
     setToken(null);
   };
 
-  // ✅ NEW: UPDATE USER (for profile edits)
+  //  UPDATE USER 
   const updateUser = (updatedUser) => {
     localStorage.setItem("user", JSON.stringify(updatedUser));
     setUser(updatedUser);

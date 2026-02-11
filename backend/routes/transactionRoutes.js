@@ -23,7 +23,7 @@ router.patch(
   payTransaction
 );
 
-// View single transaction (invoice)
+//  invoice
 router.get(
   "/:id",
   authenticate,

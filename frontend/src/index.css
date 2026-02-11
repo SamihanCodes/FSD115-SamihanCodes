@@ -1,6 +1,4 @@
-/* =========================
-   GLOBAL RESET & FONT
-========================= */
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 * {
@@ -8,9 +6,7 @@
   font-family: 'Inter', system-ui, sans-serif;
 }
 
-/* =========================
-   ROOT THEME
-========================= */
+
 :root {
   --bg-main: linear-gradient(135deg, #CCE7EC, #E6F6FA);
   --surface: rgba(255, 255, 255, 0.85);
@@ -32,9 +28,7 @@
   --shadow-hover: 0 18px 45px rgba(0,0,0,0.14);
 }
 
-/* =========================
-   BODY
-========================= */
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -42,9 +36,7 @@ body {
   color: var(--text-main);
 }
 
-/* =========================
-   NAVBAR (GLASS)
-========================= */
+
 nav {
   background: rgba(2, 57, 74, 0.85);
   backdrop-filter: var(--blur);
@@ -96,9 +88,7 @@ nav button:hover {
   transform: scale(1.05);
 }
 
-/* =========================
-   CONTAINER (GLASS CARD)
-========================= */
+
 .container {
   max-width: 1000px;
   margin: 40px auto;
@@ -110,9 +100,7 @@ nav button:hover {
   animation: fadeIn 0.6s ease;
 }
 
-/* =========================
-   CARDS
-========================= */
+
 .card {
   background: var(--surface);
   border-radius: var(--radius);
@@ -128,9 +116,7 @@ nav button:hover {
   box-shadow: var(--shadow-hover);
 }
 
-/* =========================
-   INPUTS
-========================= */
+
 input,
 textarea,
 select {
@@ -150,9 +136,7 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(76,151,168,0.2);
 }
 
-/* =========================
-   BUTTONS (PREMIUM)
-========================= */
+
 button {
   background: linear-gradient(135deg, #4C97A8, #02394A);
   color: white;
@@ -170,9 +154,7 @@ button:hover {
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-/* =========================
-   HEADINGS
-========================= */
+
 h1 {
   font-size: 34px;
   font-weight: 700;
@@ -189,9 +171,6 @@ h3 {
   color: var(--primary-dark);
 }
 
-/* =========================
-   CHAT (WHATSAPP STYLE)
-========================= */
 .chat-box {
   height: 360px;
   overflow-y: auto;
@@ -225,9 +204,7 @@ h3 {
   border-bottom-left-radius: 4px;
 }
 
-/* =========================
-   BADGES
-========================= */
+
 .badge {
   padding: 4px 10px;
   border-radius: 999px;
@@ -245,9 +222,7 @@ h3 {
   color: #991B1B;
 }
 
-/* =========================
-   ANIMATIONS
-========================= */
+
 @keyframes fadeIn {
   from {
     opacity: 0;

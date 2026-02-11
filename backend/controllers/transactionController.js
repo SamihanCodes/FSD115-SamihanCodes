@@ -1,6 +1,6 @@
 const transactionModel = require("../models/transactionModel");
 
-// View transactions (buyer/seller)
+// View transactions 
 const getMyTransactions = async (req, res) => {
   try {
     const user_id = req.user.id;
@@ -38,7 +38,7 @@ const payTransaction = async (req, res) => {
   }
 };
 
-// View single transaction (invoice)
+// invoice
 const getTransaction = async (req, res) => {
   try {
     const user_id = req.user.id;

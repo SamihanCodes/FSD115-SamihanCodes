@@ -1,6 +1,4 @@
-/* =========================
-   BRAND VARIABLES
-   ========================= */
+
 :root {
   --bg-light: #CCE7EC;
   --primary-teal: #4C97A8;
@@ -11,9 +9,7 @@
   --success: #22c55e;
 }
 
-/* =========================
-   HERO SECTION
-   ========================= */
+
 .hero {
   height: 95vh;
   background-size: cover;
@@ -48,9 +44,7 @@
   cursor: pointer;
 }
 
-/* =========================
-   FEATURES
-   ========================= */
+
 .features {
   margin-top: 70px;
 }
@@ -67,9 +61,7 @@
   gap: 28px;
 }
 
-/* =========================
-   PREMIUM CARD (NEW)
-   ========================= */
+
 .feature-card {
   position: relative;
   background: linear-gradient(to bottom, #CCE7EC, #EAF4F6);
@@ -98,7 +90,7 @@
   transform: scale(30);
 }
 
-/* TEXT */
+
 .card-title {
   position: relative;
   font-size: 20px;
@@ -144,9 +136,6 @@
   color: #ffffff;
 }
 
-/* =========================
-   LIVESTOCK
-   ========================= */
 .livestock {
   background-color: #f8fafc;
   padding: 70px 20px;

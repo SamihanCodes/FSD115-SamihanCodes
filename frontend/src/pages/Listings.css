@@ -1,22 +1,15 @@
-/* =========================
-   PAGE
-   ========================= */
+
 .listings-page {
   position: relative;
   min-height: 100vh;
 }
 
-/* =========================
-   CONTAINER
-   ========================= */
+
 .listings-container {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* =========================
-   FILTER CARD
-   ========================= */
 .filter-card {
   background: white;
   border-radius: 18px;
@@ -54,18 +47,14 @@
   cursor: pointer;
 }
 
-/* =========================
-   GRID
-   ========================= */
+
 .listings-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 26px;
 }
 
-/* =========================
-   LISTING CARD
-   ========================= */
+
 .listing-card {
   background: white;
   border-radius: 20px;
@@ -95,9 +84,7 @@
   font-weight: 600;
 }
 
-/* =========================
-   IMAGES
-   ========================= */
+
 .image-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -119,9 +106,7 @@
   object-fit: contain;
 }
 
-/* =========================
-   ACTIONS
-   ========================= */
+
 .action-block {
   margin-top: 14px;
   display: flex;
@@ -152,17 +137,12 @@ button.outline {
   color: var(--teal);
 }
 
-/* =========================
-   EMPTY + MUTED
-   ========================= */
 .empty-text,
 .muted-text {
   color: #64748b;
 }
 
-/* =========================
-   LIGHTBOX
-   ========================= */
+
 .lightbox {
   position: fixed;
   inset: 0;

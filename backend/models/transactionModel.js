@@ -28,7 +28,7 @@ const getMyTransactions = async (user_id) => {
   return result.rows;
 };
 
-// Mark transaction as paid (buyer only)
+// Mark transaction as paid 
 const markAsPaid = async (transaction_id, buyer_id) => {
   const query = `
     UPDATE transactions

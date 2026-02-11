@@ -34,7 +34,7 @@ const Login = () => {
       }
     }
   };
-  //  DEMO ADMIN AUTO-FILL
+
   const fillAdminCredentials = () => {
     setEmail("samihan@gmail.com");
     setPassword("123");

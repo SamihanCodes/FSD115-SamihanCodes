@@ -7,7 +7,7 @@ const {
   changePassword,
 } = require("../controllers/userController");
 
-// UPDATE PROFILE (name + email)
+// UPDATE PROFILE 
 router.put(
   "/profile",
   authenticate,

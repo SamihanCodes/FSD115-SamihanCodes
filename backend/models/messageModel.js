@@ -70,7 +70,7 @@ const getSellersForBuyer = async (buyer_id) => {
   return result.rows;
 };
 
-// BUYER DASHBOARD: CHAT THREADS (navbar)
+ 
 const getBuyerChats = async (buyer_id) => {
   const result = await pool.query(
     `
@@ -111,7 +111,7 @@ const getBuyersForListing = async (listing_id) => {
   return result.rows;
 };
 
-// SELLER DASHBOARD: ALL BUYER CHATS (ALL LISTINGS)
+
 const getSellerChats = async (seller_id) => {
   const result = await pool.query(
     `
@@ -136,7 +136,7 @@ module.exports = {
   createMessage,
   getMessagesBetweenUsers,
   getSellersForBuyer,
-  getBuyerChats,        // 👈 THIS WAS MISSING (critical)
+  getBuyerChats,        
   getBuyersForListing,
   getSellerChats,
 };

@@ -13,18 +13,18 @@ const {
   unblockUser,
 } = require("../controllers/adminController");
 
-// 🔹 Admin Dashboard Summary
+//  Admin Dashboard Summary
 router.get("/summary", authenticate, adminOnly, getSummary);
 
-// 🔹 User Moderation
+//  User Moderation
 router.get("/users", authenticate, adminOnly, getAllUsers);
 router.put("/users/:userId/block", authenticate, adminOnly, blockUser);
 router.put("/users/:userId/unblock", authenticate, adminOnly, unblockUser);
 
-// 🔹 Listing Moderation
+//  Listing Moderation
 router.get("/listings", authenticate, adminOnly, getAllListings);
 
-// 🔹 Transactions (Read-only)
+//  Transactions 
 router.get("/transactions", authenticate, adminOnly, getAllTransactions);
 
 module.exports = router;

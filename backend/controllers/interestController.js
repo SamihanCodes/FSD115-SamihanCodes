@@ -41,7 +41,6 @@ const createInterest = async (req, res) => {
       interest,
     });
   } catch (error) {
-    // Handle duplicate interest attempt
     if (error.code === "23505") {
       return res.status(409).json({
         message: "You have already shown interest in this listing",

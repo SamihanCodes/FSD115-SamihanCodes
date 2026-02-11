@@ -69,7 +69,7 @@ const getAllListings = async (req, res) => {
   }
 };
 
-//  GET SELLER'S OWN LISTINGS
+//  GET SELLERS OWN LISTINGS
 const getMyListings = async (req, res) => {
   try {
     const listings = await listingModel.getListingsBySeller(

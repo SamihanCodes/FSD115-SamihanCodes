@@ -1,6 +1,4 @@
-/* =========================
-   GLOBAL BRAND VARIABLES
-   ========================= */
+
 :root {
   --light: #CCE7EC;
   --teal: #4C97A8;
@@ -9,9 +7,7 @@
   --deep: #01181F;
 }
 
-/* =========================
-   GLOBAL PAGE WRAPPER
-   ========================= */
+
 .page-wrapper {
   position: relative;
   min-height: calc(100vh - 140px);
@@ -20,9 +16,7 @@
   overflow: hidden;
 }
 
-/* =========================
-   GLOBAL BACKGROUND PATTERN
-   ========================= */
+
 .page-pattern {
   position: absolute;
   inset: 0;
@@ -56,9 +50,6 @@
   );
 }
 
-/* =========================
-   GLOBAL GLASS BOX
-   ========================= */
 .glass-box {
   position: relative;
   z-index: 1;
@@ -72,9 +63,7 @@
   box-shadow: 0 30px 60px rgba(2, 57, 74, 0.25);
 }
 
-/* =========================
-   MOBILE SAFETY
-   ========================= */
+
 @media (max-width: 640px) {
   .glass-box {
     padding: 24px;

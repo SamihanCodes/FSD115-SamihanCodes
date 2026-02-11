@@ -1,6 +1,4 @@
-/* =========================
-   BRAND VARIABLES
-   ========================= */
+
 :root {
   --primary-teal: #4C97A8;
   --navy-core: #02394A;
@@ -11,9 +9,6 @@
   --error-text: #991B1B;
 }
 
-/* =========================
-   PAGE BACKGROUND
-   ========================= */
 .register-page {
   min-height: 100vh;
   background-size: cover;
@@ -26,9 +21,7 @@
   padding: 20px;
 }
 
-/* =========================
-   GLASS CARD
-   ========================= */
+
 .register-card {
   width: 100%;
   max-width: 440px;

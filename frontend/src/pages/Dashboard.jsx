@@ -19,7 +19,7 @@ const Dashboard = () => {
   return (
     <>
       <div className="dashboard-page">
-        {/* FULL PAGE BACKGROUND PATTERN */}
+        {/*  PAGE BACKGROUND PATTERN */}
         <div className="page-pattern" />
 
         {/* CONTENT */}
